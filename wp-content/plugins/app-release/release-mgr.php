@@ -1,0 +1,463 @@
+<?php
+
+abstract class BaseApp {
+    public $version;
+    public $release_date;
+    public $size;
+    public $github_link;
+    public $mixpanel_id;
+    public $app_is_archived;
+
+    function __construct($ver, $rel, $size) {
+        $this->version = $ver;
+        $this->release_date = $rel;
+        $this->size = $size;
+        $this->app_is_archived = false;
+
+    }
+
+    public function set_github_link($link) {
+
+        $this->github_link = $link;
+
+    }
+
+    public function set_mixpanel_id($link) {
+
+        $this->mixpanel_id = $link;
+
+    }
+
+    public function archive_app() {
+        $this->app_is_archived = true;
+
+    }
+
+}
+
+class IosApp extends BaseApp {
+    public $manifest_link;
+    public $itunes_link;
+    public $ipa_file;
+    public $ios_dir;
+    public $ipa_path;
+    public $bundle_id;
+
+    # common iOS settings
+    const MANIFEST_PREFIX = 'itms-services://?action=download-manifest&url=https://';
+    const MANIFEST_FILE = 'manifest.plist';
+
+    function __construct($ver, $rel, $size, $ipa_file, $itunes_link) {
+        parent::__construct($ver, $rel, $size);
+        $this->ipa_file = $ipa_file;
+        $this->itunes_link = $itunes_link;
+
+    }
+
+    public function set_downloads($downloads_rel_path) {
+
+        $this->ios_dir = $downloads_rel_path.'/ios/'.$this->version.'/';
+        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.APP_ROOT.$this->ios_dir.self::MANIFEST_FILE;
+        $this->ipa_path = APP_ROOT.$this->ios_dir.$this->ipa_file;
+
+    }
+
+    public function manifest_exists() {
+        if (file_exists($this->ios_dir.self::MANIFEST_FILE) )
+            return true;
+        else
+            return false;
+    }
+
+    public function write_manifest($app_title) {
+
+        $manifest_file = fopen($this->ios_dir.self::MANIFEST_FILE, "w") or die("Can't open file: ".$this->ios_dir.self::MANIFEST_FILE);
+
+
+        fwrite($manifest_file,  '<?xml version="1.0" encoding="UTF-8"?>'."\n");
+        fwrite($manifest_file,  '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">'."\n");
+        fwrite($manifest_file,  '<plist version="1.0">'."\n");
+        fwrite($manifest_file,  '  <dict>'."\n");
+        fwrite($manifest_file,  '    <key>items</key>'."\n");
+        fwrite($manifest_file,  '      <array>'."\n");
+        fwrite($manifest_file,  '        <dict>'."\n");
+        fwrite($manifest_file,  '          <key>assets</key>'."\n");
+        fwrite($manifest_file,  '          <array>'."\n");
+        fwrite($manifest_file,  '            <dict>'."\n");
+        fwrite($manifest_file,  '              <key>kind</key>'."\n");
+        fwrite($manifest_file,  '              <string>software-package</string>'."\n");
+        fwrite($manifest_file,  '              <key>url</key>'."\n");
+        fwrite($manifest_file,  '              <string>https://'.SERVER.$this->ipa_path."</string>\n");
+        fwrite($manifest_file,  '            </dict>'."\n");
+        fwrite($manifest_file,  '          </array>'."\n");
+        fwrite($manifest_file,  '          <key>metadata</key>'."\n");
+        fwrite($manifest_file,  '          <dict>'."\n");
+        fwrite($manifest_file,  '            <key>bundle-identifier</key>'."\n");
+        fwrite($manifest_file,  '            <string>'.$this->bundle_id."</string>\n");
+        fwrite($manifest_file,  '            <key>bundle-version</key>'."\n");
+        fwrite($manifest_file,  '            <string>'.$this->version."</string>\n");
+        fwrite($manifest_file,  '            <key>kind</key>'."\n");
+        fwrite($manifest_file,  '            <string>software</string>'."\n");
+        fwrite($manifest_file,  '            <key>title</key>'."\n");
+        fwrite($manifest_file,  '            <string>'.$app_title."</string>\n");
+        fwrite($manifest_file,  '          </dict>'."\n");
+        fwrite($manifest_file,  '        </dict>'."\n");
+        fwrite($manifest_file,  '      </array>'."\n");
+        fwrite($manifest_file,  '    </dict>'."\n");
+        fwrite($manifest_file,  '</plist>'."\n");
+
+        fclose($manifest_file);
+
+    }
+
+
+    public function set_bundle_id($bundle_id) {
+        $this->bundle_id = $bundle_id;
+    }
+
+    public function write_download_buttons($app_name) {
+
+
+        // do not display app metadata if app is archived
+        if ($this->app_is_archived == false) {
+
+            echo "iOS Version: $this->version<br />";
+            echo "Released: $this->release_date<br />";
+            echo "Size: $this->size<br />";
+        }
+
+
+        echo '<div class="btn-toolbar">';
+
+        // do not display any download app buttons if app is archived
+        if ($this->app_is_archived == false) {
+
+            $anchor_start = '<a id="'.$this->mixpanel_id.'" href="';
+
+            if($this->itunes_link) {
+                echo $anchor_start;
+                echo $this->itunes_link;
+                echo '" class="btn btn-sm btn-info">iOS Release Download</a>';
+            } else {
+                // detect iOS devices
+                $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+                $iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+                $iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad");
+
+                if ($iPhone | $iPad | $iPod)
+                    $ios_device = true;
+
+                else
+                    $ios_device = false;
+
+                // manifest links only work for iOS devices and IPA can only be open on desktop
+                if ($ios_device) {
+                    if($this->manifest_link) {
+                        echo $anchor_start;
+
+                        // set manifest link
+                        echo $this->manifest_link;
+                        echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+                    }
+                } else if ($this->ipa_path) {
+                    echo $anchor_start;
+                    echo $this->ipa_path;
+                    echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+                }
+
+            }
+        }
+
+        // GitHub links are displayed for all projects, even archived ones
+        if ($this->github_link != null) {
+            echo '<a href="';
+            echo $this->github_link;
+            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+        }
+
+
+        echo '</div>';
+
+    }
+
+    public function write_platform_label() {
+        echo '<span class="label label-info" style="margin-left:2px; margin-top:5px; display: inline-block">iOS</span>';
+    }
+}
+
+class AndroidApp extends BaseApp {
+    public $apk_file;
+    public $apk_path;
+    public $google_play_link;
+
+    function __construct($ver, $rel, $size, $apk_file, $google_play_link) {
+        parent::__construct($ver, $rel, $size);
+        $this->apk_file = $apk_file;
+        $this->google_play_link = $google_play_link;
+
+    }
+
+    public function set_downloads($downloads_path) {
+
+        // if no APK file then archived project and no app downloads
+        if ($this->apk_file != null) {
+
+            $this->apk_path = "$downloads_path/android/$this->version/$this->apk_file";
+        }
+    }
+
+    public function write_download_buttons() {
+
+        // do not display app metadata if app is archived
+        if ($this->app_is_archived == false) {
+
+
+            //echo '<!-- start write_download_buttons() for AndroidApp object  -->';
+            echo "Android Version: $this->version<br />";
+            echo "Released: $this->release_date<br />";
+            echo "Size: $this->size<br />";
+
+        }
+        echo '<div class="btn-toolbar">';
+
+        // do not display any download app buttons if app is archived
+        if ($this->app_is_archived == false) {
+
+
+            $anchor_start = '<a id="'.$this->mixpanel_id.'" href="';
+
+
+            if($this->google_play_link) {
+                echo $anchor_start;
+                echo $this->google_play_link;
+                echo '" class="btn btn-sm btn-success">Android Release Download</a>';
+            } else if($this->apk_path) {
+                echo $anchor_start;
+                echo $this->apk_path;
+                echo '" class="btn btn-sm btn-success">Android Beta Download</a>';
+            }
+
+        }
+        // GitHub links are displayed for all projects, even archived ones
+        if ($this->github_link != null) {
+            echo '<a href="';
+            echo $this->github_link;
+            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+        }
+
+        echo '</div>';
+
+    }
+
+    public function write_platform_label() {
+        echo '<span class="label label-success" style="margin-left:2px; display: inline-block">Android</span>';
+    }
+
+
+}
+
+class Project {
+    public $name;
+    public $app_title;
+    public $short_description;
+    public $icon;
+    public $ios_app;
+    public $android_app;
+    public $download_path;
+    public $has_ios_app;
+    public $has_android_app;
+
+
+    function __construct($name, $title, $short_desc, $icon) {
+        $this->name = $name;
+        $this->app_title = $title;
+        $this->short_description = $short_desc;
+        $this->icon = $icon;
+        $this->download_path = DOWNLOADS_RELATIVE_PATH.$name;
+        $this->has_android_app = false;
+        $this->has_ios_app = false;
+
+
+    }
+
+    public function write_ios_manifest_file() {
+        // if it does not exist then create it
+        $this->ios_app->write_manifest($this->app_title);
+    }
+
+
+    public function write_download_buttons() {
+
+        //echo '<!-- start output from php project->write_download_buttons() function -->';
+
+        if ($this->ios_app) {
+            $this->ios_app->write_download_buttons($this->name);
+        }
+        if ($this->android_app) {
+            $this->android_app->write_download_buttons();
+        }
+
+        //echo '<!-- end output from php project->write_download_buttons() function -->';
+
+    }
+
+    public function write_platform_labels() {
+
+        echo '<div class="platform-labels">';
+
+        echo '<span>Supported Platforms:</span>';
+        if ($this->ios_app) {
+            $this->ios_app->write_platform_label();
+        }
+        if ($this->android_app) {
+            $this->android_app->write_platform_label();
+        }
+
+        // echo '<!-- end output from php project->write_download_buttons() function -->';
+        echo '</div>';
+
+    }
+
+    public function write_panel_heading() {
+        //echo '<!-- start output from php project->write_panel_heading() function -->';
+        echo '<div class="panel-heading"><h3 class="panel-title right-block">';
+        echo $this->app_title;
+        echo '</h3></div>';
+        //echo '<!-- end output from php project->write_panel_heading() function -->';
+
+    }
+
+    public function write_panel_body() {
+
+        $title = $this->title;
+
+        //echo '<!-- start output from php project->write_panel_body() function -->';
+        echo '<div class="panel-body"><div class="media"><a class="pull-left" href="#">';
+        echo '<img class="pull-left" src="';
+        echo $this->icon;
+        echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a>';
+        echo '<div class="media-body">';
+        echo '<p>';echo $this->short_description;echo '</p>';
+        $this->write_platform_labels();
+
+        echo '</div><br />';
+
+        $this->write_inner_panels();
+
+        echo '</div></div>';
+        //echo '<!-- end output from php project->write_panel_body() function -->';
+
+
+
+    }
+
+    public function write_panel_footer() {
+        //echo '<!-- start output from php project->write_panel_footer() function -->';
+        echo '<div class="panel-footer">';
+        //$this->write_download_buttons();
+        //$this->write_platform_labels();
+
+        echo '</div>';
+        //echo '<!-- end output from php project->write_panel_footer() function -->';
+
+    }
+
+    public function write_panel() {
+        $this->write_panel_heading();
+        $this->write_panel_body();
+        $this->write_panel_footer();
+
+    }
+
+    public function add_android_app($droid_app) {
+        $droid_app->set_downloads($this->download_path);
+        $this->android_app = $droid_app;
+        $this->has_android_app = true;
+
+    }
+
+    public function add_ios_app($ios_app) {
+        $ios_app->set_downloads($this->download_path);
+        $this->ios_app = $ios_app;
+        $this->has_ios_app = true;
+
+    }
+
+    public function write_inner_panels() {
+
+        $detailPanelId = $this->name.'detailPanel';
+        $downloadPanelId = $this->name.'downloadPanel';
+
+        echo '<div class="panel-group" id="accordion">';
+
+        // Detailed Information panel
+//        echo '<div class="panel panel-default">';
+//        echo '<div class="panel-heading">';
+//
+//        echo '<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#';
+//        echo $detailPanelId;
+//        echo '">Detailed Information</a></h4></div><div id="';
+//        echo $detailPanelId;
+//        echo '" class="panel-collapse collapse">';
+//        echo '<div class="panel-body">Detailed Information goes here.</div></div></div>';
+
+        // Downloads  panel
+        echo '<div class="panel panel-default">';
+        echo '<div class="panel-heading">';
+
+        echo '<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#';
+        echo $downloadPanelId;
+
+        echo '">Downloads</a></h4></div><div id="';
+        echo $downloadPanelId;
+        echo'" class="panel-collapse collapse">';
+        echo '<div class="panel-body">';
+
+        $this->write_download_buttons();
+
+        echo '</div></div></div>';
+
+
+        echo'</div>';
+
+    }
+
+
+}
+
+
+class ReleaseManager
+{
+    public $projects;
+    private $active_ios_projects;
+
+    public static $ios_platform_id = 1;
+    public static $android_platform_id = 2;
+
+    function __construct()
+    {
+        $this->projects = array('photon','lydia','bluebird');
+        $this->active_ios_projects = [];
+
+    }
+
+    public function add_project($new_project)
+    {
+        // use name of project as key to get project object
+        $this->projects[$new_project->name] = $new_project;
+
+    }
+
+
+    public function get_project_by_name($project_name)
+    {
+        // if it does not exist then create it
+        return $this->projects[$project_name];
+
+    }
+
+}
+
+
+
+
