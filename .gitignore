@@ -1,43 +1,21 @@
-# You can use this template file to ignore core Wordpress files so that conflicts don't arise as a result
-# of upgrading Wordpress to a newer version.
-# Note: the ! excludes files from being ignored. In other words the ! INCLUDES those files in the repository.
-
-# Make sure we don't have any unneeded files in our git repo.
-/*.php
-/*.sh
-/*.html
-/*.txt
-/wp-config.php
-# You can remove the ! from the following two lines if you want
-# these files ignored in your repo.
-/!apple-touch-icon.png
-/!favicon.png
-# If you use Compass or PHP Storm -> Magicento, these lines filter the data that isn't needed live.
-.idea/
-.sass-cache/
-
-/wp-content/upgrade/
-/wp-content/uploads/
-/wp-content/plugins/
-/wp-content/index.php
-
-/wp-content/themes/twentyten/
-/wp-content/themes/twentyeleven/
-/wp-content/themes/twentytwelve/
-/wp-content/themes/twentythirteen/
-/wp-content/themes/twentyfourteen/
-/wp-content/themes/index.php
-/wp-content/plugins
-
-# Uncomment the following line if needed.
-#/!wp-content/![any customized plugin folder you may have]/
-
-# Uncomment the following line and replace with your custom theme name.
-#/!wp-content/themes/![your custom theme name]/
-
-# Core files we don't want tracked.
-wp-admin/
-wp-includes/
+ # Ignore everything in the root except the "wp-content" directory.
+/*
+!.gitignore
+!wp-content/
+ 
+# Ignore everything in the "wp-content" directory, except the "plugins" and "themes" directories.
+wp-content/*
+!wp-content/plugins/
+!wp-content/themes/
+ 
+# Ignore everything in the "plugins" directory, except the plugins you specify
+wp-content/plugins/*
+# !wp-content/plugins/my-single-file-plugin.php
+# !wp-content/plugins/my-directory-plugin/
+ 
+# Ignore everything in the "themes" directory, except the themes you specify
+wp-content/themes/*
+!wp-content/themes/my-theme/
 
 # Mac and Git files
 .DS_Store
