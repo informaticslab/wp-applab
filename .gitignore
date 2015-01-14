@@ -20,3 +20,5 @@ wp-content/themes/*
 # Mac and Git files
 .DS_Store
 .modgit/
+.idea
+
