@@ -1,5 +1,20 @@
 <?php
 
+# server setting
+$host_name = gethostname();
+
+define('SERVER_DOMAIN','phiresearchlab.org');
+
+// see if we are running on edemo, if so use it in manifest, otherwise use live domain name
+if ($host_name == 'plvsirduedemo2.lab.local')
+    define('SERVER','edemo'.'.'.SERVER_DOMAIN);  # edemo
+else
+    define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
+
+define('APP_ROOT','');
+define('DOWNLOADS_RELATIVE_PATH','downloads/');
+
+
 abstract class BaseApp {
     public $version;
     public $release_date;
@@ -189,6 +204,7 @@ class AndroidApp extends BaseApp {
     public $apk_file;
     public $apk_path;
     public $google_play_link;
+    public $downloads_path;
 
     function __construct($ver, $rel, $size, $apk_file, $google_play_link) {
         parent::__construct($ver, $rel, $size);
@@ -425,34 +441,166 @@ class Project {
 
 }
 
+class ProjectTemplate
+{
+    public $name;
+    public $platform;
+    public $app_name;
+    public $app;
+    public $icon;
+    public $github_link;
+    public $app_store_link;
+
+    function __construct($project_name, $platform, $app_name, $app, $icon, $github, $app_store_link)
+    {
+        $this->name = $project_name;
+        $this->platform = $platform;
+        $this->app_name = $app_name;
+        $this->app = $app;
+        $this->icon = $icon;
+        $this->github_link = $github;
+        $this->app_store_link = $app_store_link;
+
+    }
+
+}
+
+$photon_project_template = new ProjectTemplate('photon', Release::$ios_platform_id,'MMWR Express', 'photon.ipa', 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon', 'https://itunes.apple.com/us/app/mmwr-express/id868245971?mt=8');
+$lydia_ios_project_template = new ProjectTemplate('lydia-ios', 'ios','STD Tx Guide 2015', 'StdTxGuide.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null);
+$lydia_android_project_template = new ProjectTemplate('lydia-android', 'android','STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null);
+
+
+class Release
+{
+    // copy metadata from project template
+    public $project;
+    public $platform;
+    public $app_name;
+    public $app;
+    public $icon;
+    public $date;
+    public $manifest_link;
+    public $github_link;
+    public $app_store_link;
+    public $download_link;
+    public $ios_app;
+    public $android_app;
+
+    // get other data from plug-in UI
+    public $version;
+
+    // constants
+    public static $ios_platform_id = 'ios';
+    public static $android_platform_id = 'android';
+
+    public static $lydia_android = 'lydia_android';
+    public static $lydia_ios = 'lydia_ios';
+    public static $photon = 'photon';
+
+    public static $download_root = 'http://localhost:8080/wp-content/plugins/app-release/downloads/';
+
+    function __construct($project, $version)
+    {
+        $this->project = $project;
+        $this->version = $version;
+        error_log('Release constructor using project '.$project.' for release version '.$version ,0);
+
+    }
+
+    public function init()
+    {
+        error_log('Release init() ',0);
+
+        $project_template = $this->find_project_template($this->project);
+
+        if ($project_template == null)
+            error_log('Release init() could not find project template.', 0);
+
+        $this->project = $project_template->name;
+        $this->platform = $project_template->platform;
+        $this->app_name = $project_template->app_name;
+        $this->app = $project_template->app;
+        $this->icon = $project_template->icon;
+        $this->github_link = $project_template->github_link;
+        $this->app_store_link = $project_template->app_store_link;
+
+//        if ($this->app_store_link == null)
+//            $this->app_store_link = 'Not available';
+
+
+        $this->download_link = 'Not available';
+        $this->date = date('m/d/Y');
+
+        if ($this->platform === Release::$ios_platform_id)
+            $this->configure_ios_release();
+        elseif ($this->platform === Release::$android_platform_id)
+            $this->configure_android_release();
+
+    }
+
+
+    public function find_project_template($project)
+    {
+        global $photon_project_template;
+        global $lydia_ios_project_template;
+        global $lydia_android_project_template;
+
+        error_log('finding template for project '.$this->project,0);
+
+        if ($project === Release::$photon)
+            return $photon_project_template;
+        if ($project === Release::$lydia_ios)
+            return $lydia_ios_project_template;
+        if ($project === Release::$lydia_android)
+            return $lydia_android_project_template;
+
+        error_log('using template for project '.$this->project,0);
+
+        return null;
+
+    }
+
+    public function configure_ios_release()
+    {
+
+        error_log('Configuring iOS Release object with version '.$this->version,0);
+
+        $this->ios_app = new IosApp($this->version, $this->date, '', $this->app, $this->app_store_link);
+        $this->ios_app->set_downloads(Release::$download_root.$this->project);
+        $this->download_link = $this->ios_app->ipa_path;
+        error_log('Download path set to '.$this->download_link,0);
+        $this->manifest_link = $this->ios_app->manifest_link;
+
+    }
+
+    public function configure_android_release()
+    {
+        $this->android_app = new AndroidApp($this->version, $this->date, '', $this->app, $this->app_store_link);
+        $this->android_app->set_downloads(Release::$download_root.$this->project);
+        $this->download_link = $this->android_app->apk_path;
+
+    }
+
+}
 
 class ReleaseManager
 {
-    public $projects;
-    private $active_ios_projects;
 
-    public static $ios_platform_id = 1;
-    public static $android_platform_id = 2;
 
     function __construct()
     {
-        $this->projects = array('photon','lydia','bluebird');
-        $this->active_ios_projects = [];
 
     }
 
-    public function add_project($new_project)
+    public function configure_release($project, $version)
     {
-        // use name of project as key to get project object
-        $this->projects[$new_project->name] = $new_project;
 
-    }
+        error_log('Configuring release for project'.$project.', release '.$version, 0);
 
+        $release = new Release($project, $version);
+        $release->init();
 
-    public function get_project_by_name($project_name)
-    {
-        // if it does not exist then create it
-        return $this->projects[$project_name];
+        return $release;
 
     }
 
