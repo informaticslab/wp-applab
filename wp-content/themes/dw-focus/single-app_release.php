@@ -11,16 +11,8 @@ get_header(); ?>
 <?php the_breadcrumb(); ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php get_template_part( 'content', 'single' ); ?>
+		<?php get_template_part( 'content', 'single' );
 
-		<!-- display app name and release notes  -->
-		<!--
-		<p><strong>App Name: </strong>
-			<?php echo esc_html( get_post_meta( get_the_ID(), 'project_name', true ) ); ?>
-			<br /></p>
-
-		<strong>App Release Project: </strong>
-		<?php
 		the_terms( $post->ID, 'app_release_project' ,  ' ' );
 
 		echo '<div class="btn-toolbar">';
