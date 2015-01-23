@@ -14,7 +14,6 @@ get_header(); ?>
 		<?php get_template_part( 'content', 'single' ); ?>
 
 		<!-- display app name and release notes  -->
-		<p>Using single-app_release.php template</p>
 		<p><strong>App Name: </strong>
 			<?php echo esc_html( get_post_meta( get_the_ID(), 'project_name', true ) ); ?>
 			<br /></p>
@@ -48,22 +47,65 @@ get_header(); ?>
 		<strong>GitHub Link: </strong>
 
 		<?php
-			$github_link = esc_html( get_post_meta( get_the_ID(), 'github_link', true ) );
 			echo $github_link;
 		?>
 		<br />
 
 		<?php
+
+		echo '<div class="btn-toolbar">';
+
+		$anchor_start = '<a "href="';
+
+		$ipa_path = esc_html( get_post_meta( get_the_ID(), 'download_link', true ) );
+		$manifest_link  = esc_html( get_post_meta( get_the_ID(), 'manifest_link', true ) );
+		$itunes_link = esc_html( get_post_meta( get_the_ID(), 'app_store_link', true ) );
+
+		if($itunes_link) {
+			echo $anchor_start;
+			echo $itunes_link;
+			echo '" class="btn btn-sm btn-info">iOS Release Download</a>';
+		} else {
+			// detect iOS devices
+			$iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
+			$iPhone  = stripos($_SERVER['HTTP_USER_AGENT'],"iPhone");
+			$iPad    = stripos($_SERVER['HTTP_USER_AGENT'],"iPad");
+
+			if ($iPhone | $iPad | $iPod)
+				$ios_device = true;
+			else
+				$ios_device = false;
+
+			// manifest links only work for iOS devices and IPA can only be open on desktop
+			if ($ios_device) {
+				if($manifest_link) {
+					echo $anchor_start;
+
+					// set manifest link
+					echo $manifest_link;
+					echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+				}
+			} else if ($ipa_path) {
+				echo $anchor_start;
+				echo $ipa_path;
+				echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+			}
+
+		}
+
 		// GitHub links are displayed for all projects, even archived ones
+		$github_link = esc_html( get_post_meta( get_the_ID(), 'github_link', true ) );
+
 		if ($github_link != null) {
 			echo '<a href="';
             echo $github_link;
             echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
 		}
 		echo '</div>';
+
 		?>
 
-		
+
 <?php endwhile; // end of the loop. ?>
 
 	<?php
