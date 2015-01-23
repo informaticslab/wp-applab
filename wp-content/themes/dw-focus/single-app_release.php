@@ -17,7 +17,7 @@ get_header(); ?>
 
 		echo '<div class="btn-toolbar">';
 
-		$anchor_start = '<a "href="';
+		$anchor_start = '<a href="';
 
 		$ipa_path = esc_html( get_post_meta( get_the_ID(), 'download_link', true ) );
 		$manifest_link  = esc_html( get_post_meta( get_the_ID(), 'manifest_link', true ) );
