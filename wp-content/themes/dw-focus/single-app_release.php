@@ -14,6 +14,7 @@ get_header(); ?>
 		<?php get_template_part( 'content', 'single' ); ?>
 
 		<!-- display app name and release notes  -->
+		<!--
 		<p><strong>App Name: </strong>
 			<?php echo esc_html( get_post_meta( get_the_ID(), 'project_name', true ) ); ?>
 			<br /></p>
@@ -21,37 +22,6 @@ get_header(); ?>
 		<strong>App Release Project: </strong>
 		<?php
 		the_terms( $post->ID, 'app_release_project' ,  ' ' );
-		?>
-		<br />
-
-		<strong>Version Number: </strong>
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'version_number', true ) ); ?>
-		<br />
-
-		<strong>Release Date: </strong>
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'release_date', true ) ); ?>
-		<br />
-
-		<strong>Download Link: </strong>
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'download_link', true ) ); ?>
-		<br />
-
-		<strong>Manifest Link: </strong>
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'manifest_link', true ) ); ?>
-		<br />
-
-		<strong>App Store Link: </strong>
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'app_store_link', true ) ); ?>
-		<br />
-
-		<strong>GitHub Link: </strong>
-
-		<?php
-			echo $github_link;
-		?>
-		<br />
-
-		<?php
 
 		echo '<div class="btn-toolbar">';
 

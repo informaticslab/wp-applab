@@ -497,7 +497,7 @@ class Release
     public static $lydia_ios = 'lydia_ios';
     public static $photon = 'photon';
 
-    public static $download_root = 'http://localhost:8080/wp-content/plugins/app-release/downloads/';
+    public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/downloads/';
 
     function __construct($project, $version)
     {
