@@ -19,7 +19,7 @@ wp-content/plugins/app-release/downloads/*
  
 # Ignore everything in the "themes" directory, except the themes you specify
 wp-content/themes/*
-!wp-content/themes/my-theme/
+!wp-content/themes/dw-focus/
 
 # Mac and Git files
 .DS_Store
