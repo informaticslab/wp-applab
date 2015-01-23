@@ -47,11 +47,24 @@ get_header(); ?>
 
 		<strong>GitHub Link: </strong>
 
-		<?php echo esc_html( get_post_meta( get_the_ID(), 'github_link', true ) ); ?>
+		<?php
+			$github_link = esc_html( get_post_meta( get_the_ID(), 'github_link', true ) );
+			echo $github_link;
+		?>
 		<br />
 
+		<?php
+		// GitHub links are displayed for all projects, even archived ones
+		if ($github_link != null) {
+			echo '<a href="';
+            echo $github_link;
+            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+		}
+		echo '</div>';
+		?>
 
-	<?php endwhile; // end of the loop. ?>
+		
+<?php endwhile; // end of the loop. ?>
 
 	<?php
 		$tags = wp_get_post_tags( get_the_ID() );

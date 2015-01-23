@@ -1,0 +1,85 @@
+/*
+Theme Name: DW Focus
+Theme URI: http://www.designwall.com/wordpress-theme/dw-focus
+Author: the DesignWall team
+Author URI: http://www.designwall.com
+Description: Responsive News WordPress Theme
+Version: 1.0.6
+License: GNU General Public License
+License URI: license.txt
+*/
+
+
+.widget-easy-twitter-feed-widget-global-wrapper .row  {width:230px; margin-left:0px}
+
+
+
+.navbar-inner li.login {display:none}
+
+.synved-link-type-category {color: #0398d6}
+
+.synved-link-type-page{color: #0398d6}
+
+div.entry-content img {border:1px solid #e8e8e8}
+
+div.download-attachments img.attachment-icon {border:0px solid}
+
+#breadcrumbs{
+    list-style:none;
+    margin:10px 0;
+    overflow:hidden;
+}
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+ 
+#breadcrumbs li{
+    float:left;
+    margin-right:5px;
+}
+ 
+#breadcrumbs .separator{
+
+    font-size:14px;
+    color:#999;
+}
+
+#breadcrumbs .breadcrumbslinks{
+
+}
+
+
+div.entry-content li {
+list-style-type: inherit;
+}
+
+.before_title, .after_title {vertical-align: middle}
+
+.wrap-navigation .small-logo {
+    background: url("../img/logo-small-dark.png") no-repeat scroll center center / auto 100% rgba(0, 0, 0, 0);
+
+}
+
+@media(max-width:500px){
+.wrap-navigation .small-logo {
+    background: url("../img/logo-small-dark.png") no-repeat scroll center center / auto 60% rgba(0, 0, 0, 0);
+
+}
+
+
+}
+
+.btn-group {display:none}
+
+#under-navigation {display:none}
+
+.navbar {margin-bottom:30px}
+
+.desktop .wrap-navigation {width:100%}
+
+#secondary .widget {border-top:0px solid black}
