@@ -7,3 +7,6 @@ cp ~/informaticslab/wp-applab/wp-content/plugins/app-release/release-mgr.php /va
 # template files for DesignWall Focus themes
 cp ~/informaticslab/wp-applab/wp-content/themes/dw-focus/single-app_release.php /var/www/html/wordpress/wp-content/themes/dw-focus
 cp ~/informaticslab/wp-applab/wp-content/themes/dw-focus/archive-app_release.php /var/www/html/wordpress/wp-content/themes/dw-focus
+cp ~/informaticslab/wp-applab/wp-content/themes/dw-focus/index.php /var/www/html/wordpress/wp-content/themes/dw-focus
+cp ~/informaticslab/wp-applab/wp-content/themes/dw-focus/style.css /var/www/html/wordpress/wp-content/themes/dw-focus
+
