@@ -24,7 +24,7 @@ get_header(); ?>
 		$itunes_link = esc_html( get_post_meta( get_the_ID(), 'app_store_link', true ) );
 
 		if($itunes_link) {
-			echo $anchor_star, $itunes_link, '" class="btn btn-sm btn-info">iOS Release Download</a>';
+			echo $anchor_start, $itunes_link, '" class="btn btn-sm btn-info">iOS Release Download</a>';
 		} else {
 			// detect iOS devices
 			$iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
