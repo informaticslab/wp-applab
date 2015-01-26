@@ -24,9 +24,7 @@ get_header(); ?>
 		$itunes_link = esc_html( get_post_meta( get_the_ID(), 'app_store_link', true ) );
 
 		if($itunes_link) {
-			echo $anchor_start;
-			echo $itunes_link;
-			echo '" class="btn btn-sm btn-info">iOS Release Download</a>';
+			echo $anchor_star, $itunes_link, '" class="btn btn-sm btn-info">iOS Release Download</a>';
 		} else {
 			// detect iOS devices
 			$iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
@@ -41,16 +39,10 @@ get_header(); ?>
 			// manifest links only work for iOS devices and IPA can only be open on desktop
 			if ($ios_device) {
 				if($manifest_link) {
-					echo $anchor_start;
-
-					// set manifest link
-					echo $manifest_link;
-					echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+					echo $anchor_start, $manifest_link, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
 				}
 			} else if ($ipa_path) {
-				echo $anchor_start;
-				echo $ipa_path;
-				echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+				echo $anchor_start, $ipa_path, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
 			}
 
 		}
@@ -59,9 +51,7 @@ get_header(); ?>
 		$github_link = esc_html( get_post_meta( get_the_ID(), 'github_link', true ) );
 
 		if ($github_link != null) {
-			echo '<a href="';
-            echo $github_link;
-            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+			echo '<a href="', $github_link, '" class="btn btn-sm btn-warning">Code on GitHub</a>';
 		}
 		echo '</div>';
 

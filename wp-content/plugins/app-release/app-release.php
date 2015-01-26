@@ -150,14 +150,14 @@
                     $project_name =  $_POST['project_name_input'];
                     update_post_meta($app_release_id, 'project_name', $project_name);
                 } else {
-                    error_log('Project name is not set', 0);
+                    // error_log('Project name is not set', 0);
                 }
 
                 if (!empty($_POST['version_number_input'])) {
                     $version_number = $_POST['version_number_input'];
                     update_post_meta($app_release_id, 'version_number', $version_number);
                 } else {
-                    error_log('Version number is not set', 0);
+                    // error_log('Version number is not set', 0);
                 }
 
                 $release = $release_mgr->configure_release($project_name, $version_number);
