@@ -465,11 +465,6 @@ class ProjectTemplate
 
 }
 
-$photon_project_template = new ProjectTemplate('photon', Release::$ios_platform_id,'MMWR Express', 'photon.ipa', 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon', 'https://itunes.apple.com/us/app/mmwr-express/id868245971?mt=8');
-$lydia_ios_project_template = new ProjectTemplate('lydia-ios', Release::$ios_platform_id,'STD Tx Guide 2015', 'StdTxGuide.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null);
-$lydia_android_project_template = new ProjectTemplate('lydia-android',  Release::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null);
-
-
 class Release
 {
     // copy metadata from project template
@@ -489,32 +484,23 @@ class Release
     // get other data from plug-in UI
     public $version;
 
-    // constants
-    public static $ios_platform_id = 'ios';
-    public static $android_platform_id = 'android';
-
-    public static $lydia_android = 'lydia-android';
-    public static $lydia_ios = 'lydia-ios';
-    public static $photon = 'photon';
-
-    public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
 
     function __construct($project, $version)
     {
         $this->project = $project;
         $this->version = $version;
-        error_log('Release constructor using project '.$project.' for release version '.$version ,0);
+        // error_log('Release constructor using project '.$project.' for release version '.$version ,0);
 
     }
 
-    public function init()
+    public function init($project_template)
     {
-        error_log('Release init() ',0);
+        // error_log('Release init() ',0);
 
-        $project_template = $this->find_project_template($this->project);
+        //$project_template = $this->find_project_template($this->project);
 
-        if ($project_template == null)
-            error_log('Release init() could not find project template.', 0);
+        //if ($project_template == null)
+          //  error_log('Release init() could not find project template.', 0);
 
         $this->project = $project_template->name;
         $this->platform = $project_template->platform;
@@ -524,51 +510,26 @@ class Release
         $this->github_link = $project_template->github_link;
         $this->app_store_link = $project_template->app_store_link;
 
-//        if ($this->app_store_link == null)
-//            $this->app_store_link = 'Not available';
-
-
         $this->download_link = 'Not available';
         $this->date = date('m/d/Y');
 
-        if ($this->platform === Release::$ios_platform_id)
+        if ($this->platform === ReleaseManager::$ios_platform_id)
             $this->configure_ios_release();
-        elseif ($this->platform === Release::$android_platform_id)
+        elseif ($this->platform === ReleaseManager::$android_platform_id)
             $this->configure_android_release();
 
     }
 
 
-    public function find_project_template($project)
-    {
-        global $photon_project_template;
-        global $lydia_ios_project_template;
-        global $lydia_android_project_template;
-
-        error_log('finding template for project '.$this->project,0);
-
-        if ($project === Release::$photon)
-            return $photon_project_template;
-        if ($project === Release::$lydia_ios)
-            return $lydia_ios_project_template;
-        if ($project === Release::$lydia_android)
-            return $lydia_android_project_template;
-
-        error_log('using template for project '.$this->project,0);
-
-        return null;
-
-    }
-
     public function configure_ios_release()
     {
 
-        error_log('Configuring iOS Release object with version '.$this->version,0);
+        //error_log('Configuring iOS Release object with version '.$this->version,0);
 
         $this->ios_app = new IosApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->ios_app->set_downloads(Release::$download_root.$this->project);
+        $this->ios_app->set_downloads(ReleaseManager::$download_root.$this->project);
         $this->download_link = $this->ios_app->ipa_path;
-        error_log('Download path set to '.$this->download_link,0);
+        //error_log('Download path set to '.$this->download_link,0);
         $this->manifest_link = $this->ios_app->manifest_link;
 
     }
@@ -576,7 +537,7 @@ class Release
     public function configure_android_release()
     {
         $this->android_app = new AndroidApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->android_app->set_downloads(Release::$download_root.$this->project);
+        $this->android_app->set_downloads(ReleaseManager::$download_root.$this->project);
         $this->download_link = $this->android_app->apk_path;
 
     }
@@ -586,25 +547,67 @@ class Release
 class ReleaseManager
 {
 
+    // constants
+    public static $ios_platform_id = 'ios';
+    public static $android_platform_id = 'android';
+
+    public static $lydia_android = 'lydia-android';
+    public static $lydia_ios = 'lydia-ios';
+    public static $photon = 'photon';
+    public static $ptt = 'ptt';
+    public static $bluebird = 'bluebird';
+
+
+    public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
+
+    private $project_templates;
 
     function __construct()
     {
+        $this->project_templates = [
+            self::$photon => new ProjectTemplate(self::$photon, self::$ios_platform_id,'MMWR Express', 'photon.ipa', 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon', 'https://itunes.apple.com/us/app/mmwr-express/id868245971?mt=8'),
+            self::$lydia_ios => new ProjectTemplate(self::$lydia_ios, self::$ios_platform_id,'STD Tx Guide 2015', 'StdTxGuide.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null),
+            self::$lydia_android => new ProjectTemplate(self::$lydia_android,  self::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null),
+            self::$ptt => new ProjectTemplate(self::$ptt, self::$ios_platform_id,'PTT Advisor', 'PTTAdvisor.ipa', 'images/ptt_icon.png', 'https://github.com/informaticslab/ptt-advisor', 'https://itunes.apple.com/us/app/ptt-advisor/id537989131?mt=8&ls=1'),
+            self::$bluebird => new ProjectTemplate(self::$bluebird, self::$ios_platform_id,'Bluebird', 'bluebird.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/bluebird', null),
+
+        ];
+
 
     }
 
     public function configure_release($project, $version)
     {
 
-        error_log('Configuring release for project'.$project.', release '.$version, 0);
+        //error_log('Configuring release for project'.$project.', release '.$version, 0);
 
+        $template = $this->project_templates[$project];
         $release = new Release($project, $version);
-        $release->init();
+        $release->init($template);
 
         return $release;
 
     }
 
+
+    public function write_plugin_project_buttons($project)
+    {
+
+        foreach ($this->project_templates as $key => $value) {
+
+            echo '<input type="radio" name="project_name_input" value="', $key, '"';
+            if($project === $key)
+                echo ' checked="checked"';
+            echo ' />', $key, '</br>';
+
+        }
+
+
+    }
+
 }
+
+
 
 
 
