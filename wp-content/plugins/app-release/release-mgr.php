@@ -5,10 +5,8 @@ $host_name = gethostname();
 
 define('SERVER_DOMAIN','phiresearchlab.org');
 
-// see if we are running on edemo, if so use it in manifest, otherwise use live domain name
-if ($host_name == 'plvsirduedemo2.lab.local')
-    define('SERVER','edemo'.'.'.SERVER_DOMAIN);  # edemo
-else
+// always use live domain name for now, only domain with https support that manifest needs
+// if ($host_name == 'lvsiiuwp4.lab.local')
     define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
 
 define('APP_ROOT','');
@@ -298,7 +296,8 @@ class Project {
 
     public function write_ios_manifest_file() {
         // if it does not exist then create it
-        $this->ios_app->write_manifest($this->app_title);
+        if ($this->has_ios_app)
+            $this->ios_app->write_manifest($this->app_title);
     }
 
 
@@ -602,6 +601,17 @@ class ReleaseManager
 
         }
 
+
+    }
+
+    public function write_ios_manifest_files()
+    {
+        foreach ($this->project_templates as $key => $project) {
+
+            /// TBD manifest are manual right now
+            ///$project->write_ios_manifest_file();
+
+        }
 
     }
 
