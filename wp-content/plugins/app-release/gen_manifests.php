@@ -1,6 +1,6 @@
 <?php
 
-require("mobile_apps_bootstrap.php");
+require("mobile_apps_wordpress.php");
 
 
 foreach ($ios_projects as $project) {
