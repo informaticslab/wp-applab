@@ -7,7 +7,7 @@ define('SERVER_DOMAIN','phiresearchlab.org');
 
 // always use live domain name for now, only domain with https support that manifest needs
 // if ($host_name == 'lvsiiuwp4.lab.local')
-    define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
+define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
 
 define('APP_ROOT','');
 define('DOWNLOADS_RELATIVE_PATH','releases/');
@@ -555,6 +555,8 @@ class ReleaseManager
     public static $photon = 'photon';
     public static $ptt = 'ptt';
     public static $bluebird = 'bluebird';
+    public static $epi = 'epi';
+    public static $everydose = 'everydose';
 
 
     public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
@@ -569,6 +571,8 @@ class ReleaseManager
             self::$lydia_android => new ProjectTemplate(self::$lydia_android,  self::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null),
             self::$ptt => new ProjectTemplate(self::$ptt, self::$ios_platform_id,'PTT Advisor', 'PTTAdvisor.ipa', 'images/ptt_icon.png', 'https://github.com/informaticslab/ptt-advisor', 'https://itunes.apple.com/us/app/ptt-advisor/id537989131?mt=8&ls=1'),
             self::$bluebird => new ProjectTemplate(self::$bluebird, self::$ios_platform_id,'Bluebird', 'bluebird.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/bluebird', null),
+            self::$epi => new ProjectTemplate(self::$epi, self::$ios_platform_id,'Epi Info', 'EpiInfo.ipa', 'images/epi_icon.png', null, null),
+            self::$everydose => new ProjectTemplate(self::$everydose, self::$android_platform_id,'EveryDose', 'EveryDose.apk', 'images/tempmon_icon.png', null, null)
 
         ];
 
