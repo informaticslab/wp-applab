@@ -19,7 +19,7 @@ else
     define('APP_ROOT','/applabtest/'); // else must be a dev server
 
 define('DOWNLOADS_RELATIVE_PATH','releases/');
-define('MANIFEST_SPECIFIC_IPA_PATH','wp-content/plugins/app-release/');
+define('MANIFEST_SPECIFIC_IPA_PATH','/wp-content/plugins/app-release/');
 
 
 abstract class BaseApp {
