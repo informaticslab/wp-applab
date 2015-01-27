@@ -10,14 +10,14 @@
 $host_name = gethostname();
 
 define('SERVER_DOMAIN','phiresearchlab.org');
+define('SERVER','www'.'.'.SERVER_DOMAIN);
 
-// see if we are running on edemo, if so use it in manifest, otherwise use live domain name
-if ($host_name == 'plvsirduedemo2.lab.local')
-    define('SERVER','edemo'.'.'.SERVER_DOMAIN);  # edemo
+// see which VM we are running so manifest links get generated properly
+if ($host_name === 'lvsiiuwp4.lab.local') // production server
+    define('APP_ROOT','/applab/');
 else
-    define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
+    define('APP_ROOT','/applabtest/'); // else must be a dev server
 
-define('APP_ROOT','/applab/');
 define('DOWNLOADS_RELATIVE_PATH','downloads/');
 
 
@@ -167,7 +167,6 @@ class IosApp extends BaseApp {
 
                 if ($iPhone | $iPad | $iPod)
                     $ios_device = true;
-
                 else
                     $ios_device = false;
 
