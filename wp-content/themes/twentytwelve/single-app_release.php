@@ -5,55 +5,74 @@
 get_header(); ?>
     <div id="primary">
         <div id="content" role="main">
-            <?php
-            $apppost = array( 'post_type' => 'app_release', );
-            $loop = new WP_Query( $apppost );
-            ?>
-            <?php while ( $loop->have_posts() ) : $loop->the_post();?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <header class="entry-header">
+            <?php while ( have_posts() ) : the_post();?>
+                <?php get_template_part( 'content', 'single' );
 
-                        <!-- display app name and release notes  -->
-                        <p>Using single-app_release.php template</p>
-                        <p><strong>App Name: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'project_name', true ) ); ?>
-                        <br /></p>
+                the_terms( $post->ID, 'app_release_project' ,  ' ' );
 
-                        <strong>App Release Project: </strong>
-                        <?php
-                        the_terms( $post->ID, 'app_release_project' ,  ' ' );
-                        ?>
-                        <br />
+                echo '<div class="btn-toolbar">';
 
-                        <strong>Version Number: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'version_number', true ) ); ?>
-                        <br />
+                $platform = get_post_meta( $post->ID, 'platform_id', true );
 
-                        <strong>Release Date: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'release_date', true ) ); ?>
-                        <br />
+                $anchor_start = '<a href="';
 
-                        <strong>Download Link: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'download_link', true ) ); ?>
-                        <br />
+                // iOS part of template
+                if ($platform === 'ios' ) {
 
-                        <strong>Manifest Link: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'manifest_link', true ) ); ?>
-                        <br />
+                    $ipa_path = get_post_meta($post->ID, 'download_link', true);
+                    $manifest_link = get_post_meta($post->ID, 'manifest_link', true);
+                    $itunes_link = get_post_meta($post->ID, 'app_store_link', true);
 
-                        <strong>App Store Link: </strong>
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'app_store_link', true ) ); ?>
-                        <br />
+                    if ($itunes_link) {
+                        echo $anchor_start, $itunes_link, '" class="btn btn-sm btn-info">iOS Release Download</a>';
+                    } else {
+                        // detect iOS devices
+                        $iPod = stripos($_SERVER['HTTP_USER_AGENT'], "iPod");
+                        $iPhone = stripos($_SERVER['HTTP_USER_AGENT'], "iPhone");
+                        $iPad = stripos($_SERVER['HTTP_USER_AGENT'], "iPad");
 
-                        <strong>GitHub Link: </strong>
+                        if ($iPhone | $iPad | $iPod)
+                            $ios_device = true;
+                        else
+                            $ios_device = false;
 
-                        <?php echo esc_html( get_post_meta( get_the_ID(), 'github_link', true ) ); ?>
-                        <br />
-                    </header>
+                        // manifest links only work for iOS devices and IPA can only be open on desktop
+                        if ($ios_device) {
+                            if ($manifest_link) {
+                                echo $anchor_start, $manifest_link, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+                            }
+                        } else if ($ipa_path) {
+                            echo $anchor_start, $ipa_path, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+                        }
 
-                    <!-- display app release info contents -->
-                    <div class="entry-content"><?php the_content(); ?></div>
-                </article>
+                    }
+
+                }
+
+                // Android part of template
+                elseif ($platform === 'android') {
+
+                    $apk_path = get_post_meta($post->ID, 'download_link', true);
+                    $manifest_link = get_post_meta($post->ID, 'manifest_link', true);
+                    $google_play_link = get_post_meta($post->ID, 'app_store_link', true);
+
+                    if($google_play_link) {
+                        echo $anchor_start, $google_play_link, '" class="btn btn-sm btn-success">Android Release Download</a>';
+                    } else if($apk_path) {
+                        echo $anchor_start, $apk_path, '" class="btn btn-sm btn-success">Android Beta Download</a>';
+                    }
+
+                }
+
+                // GitHub links are displayed for all projects, even archived ones
+                $github_link = get_post_meta( $post->ID, 'github_link', true );
+
+                if ($github_link != null) {
+                    echo '<a href="', $github_link, '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+                }
+                echo '</div>';
+
+                ?>
 
             <?php endwhile; ?>
         </div>

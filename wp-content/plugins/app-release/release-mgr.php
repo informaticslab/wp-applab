@@ -493,8 +493,8 @@ class Release
     public static $ios_platform_id = 'ios';
     public static $android_platform_id = 'android';
 
-    public static $lydia_android = 'lydia_android';
-    public static $lydia_ios = 'lydia_ios';
+    public static $lydia_android = 'lydia-android';
+    public static $lydia_ios = 'lydia-ios';
     public static $photon = 'photon';
 
     public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';

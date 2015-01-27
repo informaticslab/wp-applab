@@ -19,8 +19,6 @@ get_header(); ?>
 
 		$platform = get_post_meta( $post->ID, 'platform_id', true );
 
-		echo '#################### DEBUG INFO ###########';
-		echo '<p> Mobile Platform = ',$platform, '</p>';
 		$anchor_start = '<a href="';
 
 		// iOS part of template
