@@ -18,7 +18,7 @@ if ($host_name === 'lvsiiuwp4.lab.local') // production server
 else
     define('APP_ROOT','/applabtest/'); // else must be a dev server
 
-define('DOWNLOADS_RELATIVE_PATH','wp-content/plugins/app-release/releases/');
+define('DOWNLOADS_RELATIVE_PATH','releases/');
 
 
 abstract class BaseApp {
