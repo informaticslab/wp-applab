@@ -12,7 +12,7 @@ else
     define('SERVER','www'.'.'.SERVER_DOMAIN);  # live
 
 define('APP_ROOT','');
-define('DOWNLOADS_RELATIVE_PATH','downloads/');
+define('DOWNLOADS_RELATIVE_PATH','releases/');
 
 
 abstract class BaseApp {
@@ -466,8 +466,8 @@ class ProjectTemplate
 }
 
 $photon_project_template = new ProjectTemplate('photon', Release::$ios_platform_id,'MMWR Express', 'photon.ipa', 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon', 'https://itunes.apple.com/us/app/mmwr-express/id868245971?mt=8');
-$lydia_ios_project_template = new ProjectTemplate('lydia-ios', 'ios','STD Tx Guide 2015', 'StdTxGuide.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null);
-$lydia_android_project_template = new ProjectTemplate('lydia-android', 'android','STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null);
+$lydia_ios_project_template = new ProjectTemplate('lydia-ios', Release::$ios_platform_id,'STD Tx Guide 2015', 'StdTxGuide.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null);
+$lydia_android_project_template = new ProjectTemplate('lydia-android',  Release::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null);
 
 
 class Release
@@ -497,7 +497,7 @@ class Release
     public static $lydia_ios = 'lydia_ios';
     public static $photon = 'photon';
 
-    public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/downloads/';
+    public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
 
     function __construct($project, $version)
     {

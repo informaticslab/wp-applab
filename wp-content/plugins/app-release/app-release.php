@@ -205,9 +205,9 @@ function display_app_release_meta_box( $app_release ) {
         <tr>
             <td>Project Name</td>
             <td>
-            <input type="radio" name="project_name_input" value="photon" <?php if($project_name == 'photon') echo 'checked="checked"'; ?> />Photon </br>
-            <input type="radio" name="project_name_input" value="lydia-ios" <?php if($project_name == 'lydia-ios') echo 'checked="checked"'; ?>  />Lydia for iOS</br>
-                <input type="radio" name="project_name_input" value="lydia-android" <?php if($project_name == 'lydia-android') echo 'checked="checked"'; ?>  />Lydia for Android</br>
+            <input type="radio" name="project_name_input" value="photon" <?php if($project_name === 'photon') echo 'checked="checked"'; ?> />Photon </br>
+            <input type="radio" name="project_name_input" value="lydia-ios" <?php if($project_name === 'lydia-ios') echo 'checked="checked"'; ?>  />Lydia for iOS</br>
+                <input type="radio" name="project_name_input" value="lydia-android" <?php if($project_name === 'lydia-android') echo 'checked="checked"'; ?>  />Lydia for Android</br>
 
             </td>
         </tr>
