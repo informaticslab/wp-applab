@@ -557,6 +557,7 @@ class ReleaseManager
     public static $bluebird = 'bluebird';
     public static $epi = 'epi';
     public static $everydose = 'everydose';
+    public static $retro = 'retro';
 
 
     public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
@@ -572,7 +573,8 @@ class ReleaseManager
             self::$ptt => new ProjectTemplate(self::$ptt, self::$ios_platform_id,'PTT Advisor', 'PTTAdvisor.ipa', 'images/ptt_icon.png', 'https://github.com/informaticslab/ptt-advisor', 'https://itunes.apple.com/us/app/ptt-advisor/id537989131?mt=8&ls=1'),
             self::$bluebird => new ProjectTemplate(self::$bluebird, self::$ios_platform_id,'Bluebird', 'bluebird.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/bluebird', null),
             self::$epi => new ProjectTemplate(self::$epi, self::$ios_platform_id,'Epi Info', 'EpiInfo.ipa', 'images/epi_icon.png', null, null),
-            self::$everydose => new ProjectTemplate(self::$everydose, self::$android_platform_id,'EveryDose', 'EveryDose.apk', 'images/tempmon_icon.png', null, null)
+            self::$everydose => new ProjectTemplate(self::$everydose, self::$android_platform_id,'EveryDose', 'EveryDose.apk', 'images/tempmon_icon.png', null, null),
+            self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null)
 
         ];
 
