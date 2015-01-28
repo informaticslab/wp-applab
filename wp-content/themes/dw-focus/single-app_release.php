@@ -16,8 +16,7 @@ get_header(); ?>
 		echo '<div class="media"><a class="pull-left" href="#">';
 		echo '<img class="pull-left" src="';
         echo $icon;
-        echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a>';
-		echo '<div class="media-body">';
+        echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a></div>';
 		?>
 
 		<?php get_template_part( 'content', 'single' );
