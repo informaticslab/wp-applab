@@ -168,6 +168,7 @@ function save_app_release_fields( $app_release_id, $app_release )
         update_post_meta($app_release_id, 'app_store_link', $release->app_store_link);
         update_post_meta($app_release_id, 'github_link', $release->github_link);
         update_post_meta($app_release_id, 'download_link', $release->download_link);
+        update_post_meta($app_release_id, 'icon', $release->icon);
 
 
         //  global $wpdb;

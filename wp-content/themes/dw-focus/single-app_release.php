@@ -11,6 +11,15 @@ get_header(); ?>
 <?php the_breadcrumb(); ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 
+		<?php
+		$icon = get_post_meta($post->ID, 'icon', true);
+		echo '<div class="media"><a class="pull-left" href="#">';
+		echo '<img class="pull-left" src="';
+        echo $this->icon;
+        echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a>';
+		echo '<div class="media-body">';
+		?>
+
 		<?php get_template_part( 'content', 'single' );
 
 		the_terms( $post->ID, 'app_release_project' ,  ' ' );
