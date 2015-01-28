@@ -9,7 +9,9 @@ License: GNU General Public License
 License URI: license.txt
 */
 
+body {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important}
 
+.entry-title {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important}
 .widget-easy-twitter-feed-widget-global-wrapper .row  {width:230px; margin-left:0px}
 
 
@@ -83,3 +85,9 @@ list-style-type: inherit;
 .desktop .wrap-navigation {width:100%}
 
 #secondary .widget {border-top:0px solid black}
+
+div.appDisplay h1.entry-title {display:none}
+
+.single .site-content > .hentry .entry-thumbnail img {display:none}
+
+div.appDisplay ul.post-categories {display:none}

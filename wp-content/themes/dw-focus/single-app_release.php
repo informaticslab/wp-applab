@@ -7,22 +7,29 @@
 
 get_header(); ?>
 
-    <div id="primary" class="site-content span9">
+    <div id="primary" class="site-content span9 appDisplay">
 <?php the_breadcrumb(); ?>
-	<?php while ( have_posts() ) : the_post(); ?>
-
-		<?php
+<div style="width:150px; float:left">
+<?php
 		$icon = get_post_meta($post->ID, 'icon', true);
 		echo '<div class="media"><a class="pull-left" href="#">';
 		echo '<img class="pull-left" src="';
         echo 'wp-content/plugins/app-release/',$icon;
         echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a></div>';
 		?>
+        
+</div>
+<div>        
+<h1 class="appentry-title"><?php the_title(); ?></h1>
+</div>
+	<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php get_template_part( 'content', 'single' );
+		
 
-		the_terms( $post->ID, 'app_release_project' ,  ' ' );
+		
 
+		<?php the_terms( $post->ID, 'app_release_project' ,  ' ' );?>
+        <?php
 		echo '<div class="btn-toolbar">';
 
 		$platform = get_post_meta( $post->ID, 'platform_id', true );
@@ -122,7 +129,7 @@ get_header(); ?>
 			} 
 		}
 	?>	
-		
+	<?php get_template_part( 'content', 'single' ); ?>	
 	<?php  while ( have_posts() ) { the_post(); ?>
 		<?php comments_template( '', true ); ?>
 	<?php } ?>
