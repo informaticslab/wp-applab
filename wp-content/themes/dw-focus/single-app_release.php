@@ -15,7 +15,7 @@ get_header(); ?>
 		$icon = get_post_meta($post->ID, 'icon', true);
 		echo '<div class="media"><a class="pull-left" href="#">';
 		echo '<img class="pull-left" src="';
-        echo $this->icon;
+        echo $icon;
         echo '" title="'; echo $title; echo '" alt="'; echo $title; echo '" /></a>';
 		echo '<div class="media-body">';
 		?>
