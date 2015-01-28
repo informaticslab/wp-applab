@@ -116,7 +116,7 @@ function create_app_release() {
             'capability_type' =>'post',
             'menu_position' => 2,
             'supports' => array( 'title', 'editor', 'thumbnail' ),
-            'taxonomies' => array( '' ),
+            'taxonomies' => array( 'category' ),
             'menu_icon' => plugins_url( 'images/image.png', __FILE__ ),
             'has_archive' => true
         )
