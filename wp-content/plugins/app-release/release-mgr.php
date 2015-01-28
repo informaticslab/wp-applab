@@ -558,6 +558,11 @@ class ReleaseManager
     public static $epi = 'epi';
     public static $everydose = 'everydose';
     public static $retro = 'retro';
+    public static $tempmon = 'tempmon';
+    public static $wisqars = 'wisqars';
+    public static $mmwrnav = 'mmwr-navigator';
+    public static $mmwrmap = 'mapapp';
+    public static $minesim = 'minesim';
 
 
     public static $download_root = 'http://172.16.100.213/wordpress/wp-content/plugins/app-release/releases/';
@@ -574,7 +579,12 @@ class ReleaseManager
             self::$bluebird => new ProjectTemplate(self::$bluebird, self::$ios_platform_id,'Bluebird', 'bluebird.ipa', 'images/std1_icon.png', 'https://github.com/informaticslab/bluebird', null),
             self::$epi => new ProjectTemplate(self::$epi, self::$ios_platform_id,'Epi Info', 'EpiInfo.ipa', 'images/epi_icon.png', null, null),
             self::$everydose => new ProjectTemplate(self::$everydose, self::$android_platform_id,'EveryDose', 'EveryDose.apk', 'images/tempmon_icon.png', null, null),
-            self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null)
+            self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null),
+            self::$tempmon => new ProjectTemplate(self::$tempmon, self::$ios_platform_id,'Temp Monitor', 'TempMonitor.ipa', 'images/tempmon_icon.png', 'https://github.com/informaticslab/ebolocatemp-ios', null),
+            self::$wisqars => new ProjectTemplate(self::$wisqars, self::$ios_platform_id,'WISQARS', 'WisqarsMobile.ipa', 'images/WISQARSMobileApp72.png', null, null),
+            self::$mmwrnav => new ProjectTemplate(self::$mmwrnav, self::$ios_platform_id,'MMWR Navigator', 'mmwr-navigator.ipa', 'images/mmwr_nav_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
+            self::$mmwrmap => new ProjectTemplate(self::$mmwrmap, self::$ios_platform_id,'MMWR Map Navigator', 'MapApp.ipa', 'images/mmwr_map_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
+            self::$minesim => new ProjectTemplate(self::$minesim, self::$ios_platform_id,'NIOSH Mine Safety Training', 'mine_sim.ipa', 'images/mine_safety_icon.png', 'https://github.com/informaticslab/vrminesim', null)
 
         ];
 
@@ -606,7 +616,6 @@ class ReleaseManager
             echo ' />', $key, '</br>';
 
         }
-
 
     }
 
