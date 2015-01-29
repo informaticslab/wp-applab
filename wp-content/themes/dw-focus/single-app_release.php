@@ -9,7 +9,7 @@ get_header(); ?>
 
     <div id="primary" class="site-content span9 appDisplay">
 <?php the_breadcrumb(); ?>
-<div style="width:150px; float:left">
+<div style="width:80px; float:left">
 <?php
 		$icon = get_post_meta($post->ID, 'icon', true);
 		echo '<div class="media"><a class="pull-left" href="#">';
