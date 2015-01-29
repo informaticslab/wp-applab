@@ -43,6 +43,7 @@ get_header(); ?>
             <?php global $archive_i; $archive_i = 1 ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part('content', 'archive'); ?>
+                <p>archive-app_release.php</p>
                 <?php $archive_i++; ?>
 			<?php endwhile; ?>
 		<?php else : ?>
