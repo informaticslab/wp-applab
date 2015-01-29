@@ -121,6 +121,8 @@ function create_app_release() {
             'has_archive' => true
         )
     );
+    register_taxonomy_for_object_type('category','app_release');
+
 }
 
 function app_release_admin() {
