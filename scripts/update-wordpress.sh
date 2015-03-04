@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # WP4 VM location
-dest='/var/www/html/applab'
+dest='/var/www/html'
 
 # WP3 VM location
 #dest='/var/www/html/wordpress'
