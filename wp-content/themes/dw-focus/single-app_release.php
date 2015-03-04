@@ -44,7 +44,7 @@ get_header(); ?>
 			$itunes_link = get_post_meta($post->ID, 'app_store_link', true);
 
 			if ($itunes_link) {
-				echo $anchor_start, $itunes_link, '" class="btn btn-sm btn-info">iOS Release Download</a>';
+				echo $anchor_start, $itunes_link, '" class="btn btn-sm btn-info">iOS Download</a>';
 			} else {
 				// detect iOS devices
 				$iPod = stripos($_SERVER['HTTP_USER_AGENT'], "iPod");
@@ -59,10 +59,10 @@ get_header(); ?>
 				// manifest links only work for iOS devices and IPA can only be open on desktop
 				if ($ios_device) {
 					if ($manifest_link) {
-						echo $anchor_start, $manifest_link, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+						echo $anchor_start, $manifest_link, '" class="btn btn-sm btn-info">iOS Download</a>';
 					}
 				} else if ($ipa_path) {
-					echo $anchor_start, $ipa_path, '" class="btn btn-sm btn-info">iOS Beta Download</a>';
+					echo $anchor_start, $ipa_path, '" class="btn btn-sm btn-info">iOS Download</a>';
 				}
 
 			}
@@ -77,9 +77,9 @@ get_header(); ?>
 			$google_play_link = get_post_meta($post->ID, 'app_store_link', true);
 
 			if($google_play_link) {
-				echo $anchor_start, $google_play_link, '" class="btn btn-sm btn-success">Android Release Download</a>';
+				echo $anchor_start, $google_play_link, '" class="btn btn-sm btn-success">Android Download</a>';
 			} else if($apk_path) {
-				echo $anchor_start, $apk_path, '" class="btn btn-sm btn-success">Android Beta Download</a>';
+				echo $anchor_start, $apk_path, '" class="btn btn-sm btn-success">Android Download</a>';
 			}
 
 		}
@@ -88,7 +88,7 @@ get_header(); ?>
 		$github_link = get_post_meta( $post->ID, 'github_link', true );
 
 		if ($github_link != null) {
-			echo '<a href="', $github_link, '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+			echo '<a href="', $github_link, '" class="btn btn-sm btn-warning">View Code on GitHub</a>';
 		}
 		echo '</div>';
 
