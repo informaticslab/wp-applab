@@ -159,7 +159,6 @@ class IosApp extends BaseApp {
             if($this->itunes_link) {
                 echo $anchor_start;
                 echo $this->itunes_link;
-                echo '" class="btn btn-sm btn-info">iOS Release Download</a>';
             } else {
                 // detect iOS devices
                 $iPod    = stripos($_SERVER['HTTP_USER_AGENT'],"iPod");
@@ -178,22 +177,21 @@ class IosApp extends BaseApp {
 
                         // set manifest link
                         echo $this->manifest_link;
-                        echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
                     }
                 } else if ($this->ipa_path) {
                     echo $anchor_start;
                     echo $this->ipa_path;
-                    echo '" class="btn btn-sm btn-info">iOS Beta Download</a>';
                 }
 
             }
+            echo '" class="btn btn-sm btn-info">iOS Download</a>';
         }
 
         // GitHub links are displayed for all projects, even archived ones
         if ($this->github_link != null) {
             echo '<a href="';
             echo $this->github_link;
-            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+            echo '" class="btn btn-sm btn-warning">View Code on GitHub</a>';
         }
 
 
@@ -251,19 +249,18 @@ class AndroidApp extends BaseApp {
             if($this->google_play_link) {
                 echo $anchor_start;
                 echo $this->google_play_link;
-                echo '" class="btn btn-sm btn-success">Android Release Download</a>';
             } else if($this->apk_path) {
                 echo $anchor_start;
                 echo $this->apk_path;
-                echo '" class="btn btn-sm btn-success">Android Beta Download</a>';
             }
+            echo '" class="btn btn-sm btn-success">Android Download</a>';
 
         }
         // GitHub links are displayed for all projects, even archived ones
         if ($this->github_link != null) {
             echo '<a href="';
             echo $this->github_link;
-            echo '" class="btn btn-sm btn-warning">Code on GitHub</a>';
+            echo '" class="btn btn-sm btn-warning">View Code on GitHub</a>';
         }
 
         echo '</div>';
