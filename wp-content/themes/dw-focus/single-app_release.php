@@ -9,6 +9,8 @@ get_header(); ?>
 
     <div id="primary" class="site-content span9 appDisplay">
 
+<div id="appreleaseTerms"><?php the_terms( $post->ID, 'app_release_project' ,  ' ' );?></div>
+
 <div style="width:80px; float:left">
 <?php
 		$icon = get_post_meta($post->ID, 'icon', true);
@@ -20,16 +22,12 @@ get_header(); ?>
         
 </div>
 <div>        
-<h1 class="appentry-title"><?php the_title(); ?></h1>
+<h3 class="appentry-title"><?php the_title(); ?></h3>
 </div>
 	<?php while ( have_posts() ) : the_post(); ?>
-
-		
-
-		
-
-		<?php the_terms( $post->ID, 'app_release_project' ,  ' ' );?>
-        <?php
+    <?php
+        echo '<br />';
+		echo '<br />';
 		echo '<div class="btn-toolbar">';
 
 		$platform = get_post_meta( $post->ID, 'platform_id', true );
@@ -93,7 +91,7 @@ get_header(); ?>
 		echo '</div>';
 
 		?>
-
+        <?php $permalink = get_permalink($post->post_parent); ?>
 
 <?php endwhile; // end of the loop. ?>
 
