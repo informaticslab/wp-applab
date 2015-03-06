@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jtq6
- * Date: 3/26/14
- * Time: 5:14 PM
- */
 
 # server setting
 $host_name = gethostname();
@@ -443,37 +437,6 @@ class Project {
 
 }
 
-class AppManager
-{
-    private $projects;
-    private $active_ios_projects;
-
-    function __construct()
-    {
-        $this->projects = [];
-        $this->active_ios_projects = [];
-
-    }
-
-    public function add_project($new_project)
-    {
-        // use name of project as key to get project object
-        $this->projects[$new_project->name] = $new_project;
-
-    }
-
-
-    public function get_project_by_name($project_name)
-    {
-        // if it does not exist then create it
-        return $this->projects[$project_name];
-
-    }
-
-}
-
-
-
 # PTT Advisor App
 $ptt_short_desc = 'Assists clinical providers in their evaluation of patients with an abnormal clinical laboratory blood test, specifically an abnormal PTT (Partial Thromboplastin Time).';
 $ptt_project = new Project('ptt-advisor', 'PTT Advisor', $ptt_short_desc, 'images/ptt_icon.png');
@@ -679,11 +642,5 @@ $ios_projects = array (
     $tox_guide_project,
     $wisqars_project
 );
-
-$app_mgr = new AppManager();
-$app_mgr->add_project($bluebird_project);
-$app_mgr->add_project($tempmon_project);
-$app_mgr->add_project($photon_project);
-$app_mgr->add_project($retro_project);
 
 

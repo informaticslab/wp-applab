@@ -1,19 +1,28 @@
 <?php
 
-require("mobile_apps_wordpress.php");
+require("release-mgr.php");
+
+$release_mgr = new ReleaseManager();
+
+$release = $release_mgr->configure_release($project_name, $version_number);
+
+$ios_releases = array (
+    $release_mgr->configure_release(ReleaseManager::$bluebird,'0.1.6.1'),
+    $release_mgr->configure_release(ReleaseManager::$epi, '2.0'),
+    $release_mgr->configure_release(ReleaseManager::$lydia_ios, '0.3.5.1'),
+    $release_mgr->configure_release(ReleaseManager::$minesim, '0.7301.276'),
+    $release_mgr->configure_release(ReleaseManager::$mmwrmap, '1.3.6.1'),
+    $release_mgr->configure_release(ReleaseManager::$mmwrnav, '0.8.12.1'),
+    $release_mgr->configure_release(ReleaseManager::$retro, '0.2.2.1'),
+    $release_mgr->configure_release(ReleaseManager::$tempmon, '0.2.3.1'),
+    $release_mgr->configure_release(ReleaseManager::$wisqars, '0.2.7')
+);
 
 
-foreach ($ios_projects as $project) {
+foreach ($ios_releases as $release) {
 
 
-//    echo 'Manifest link = '.$project->ios_app->manifest_link."\n";
-//    echo 'iTunes link = '.$project->ios_app->itunes_link."\n";
-//    echo 'IPA file = '.$project->ios_app->ipa_file."\n";
-//    echo 'iOS dir = '.$project->ios_app->ios_dir."\n";
-//    echo 'IPA path = '.$project->ios_app->ipa_path."\n";
-//    echo 'Bundle ID = '.$project->ios_app->bundle_id."\n";
-
-    $project->write_ios_manifest_file();
+    $release->ios_app->write_ios_manifest_file();
 
 }
 
