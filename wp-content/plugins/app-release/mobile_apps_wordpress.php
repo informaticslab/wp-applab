@@ -14,7 +14,7 @@ define('SERVER','www'.'.'.SERVER_DOMAIN);
 
 // see which VM we are running so manifest links get generated properly
 if ($host_name === 'lvsiiuwp4.lab.local') // production server
-    define('APP_ROOT','');
+    define('APP_ROOT','/');
 else
     define('APP_ROOT','/applabtest/'); // else must be a dev server
 
