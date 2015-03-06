@@ -4,8 +4,6 @@ require("release-mgr.php");
 
 $release_mgr = new ReleaseManager();
 
-$release = $release_mgr->configure_release($project_name, $version_number);
-
 $ios_releases = array (
     $release_mgr->configure_release(ReleaseManager::$bluebird,'0.1.6.1'),
     $release_mgr->configure_release(ReleaseManager::$epi, '2.0'),
@@ -22,7 +20,7 @@ $ios_releases = array (
 foreach ($ios_releases as $release) {
 
 
-    $release->ios_app->write_ios_manifest_file();
+    $release->ios_app->write_manifest();
 
 }
 
