@@ -494,7 +494,7 @@ $photon_project->add_ios_app($photon_ios_app);
 
 # Lydia settings
 $lydia_ios_short_desc = 'Provides fast access to the blue summary boxes in MMWR\'s weekly report. Summaries are searchable by specific article, or by specific subject (e.g., salmonella). For iOS devices.';
-$lydia_ios_project = new Project('lydia', 'STD Tx Guide 2015', $lydia_ios_short_desc, 'images/std1_icon.png');
+$lydia_ios_project = new Project('lydia-ios', 'STD Tx Guide 2015', $lydia_ios_short_desc, 'images/std1_icon.png');
 $lydia_ios_app = new IosApp('0.3.5.1', '2/27/15', '5.4MB', 'StdTxGuide.ipa', null);
 $lydia_ios_app->set_github_link('https://github.com/informaticslab/lydia-ios');
 $lydia_ios_app->set_bundle_id('gov.cdc.StdTxGuide');
