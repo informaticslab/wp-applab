@@ -14,7 +14,6 @@ foreach ($ios_projects as $project) {
 //    echo 'Bundle ID = '.$project->ios_app->bundle_id."\n";
 
     $project->write_ios_manifest_file();
+
 }
-
-
 

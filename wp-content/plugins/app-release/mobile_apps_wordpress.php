@@ -14,7 +14,7 @@ define('SERVER','www'.'.'.SERVER_DOMAIN);
 
 // see which VM we are running so manifest links get generated properly
 if ($host_name === 'lvsiiuwp4.lab.local') // production server
-    define('APP_ROOT','/applab/');
+    define('APP_ROOT','');
 else
     define('APP_ROOT','/applabtest/'); // else must be a dev server
 
@@ -495,12 +495,12 @@ $photon_project->add_ios_app($photon_ios_app);
 # Lydia settings
 $lydia_short_desc = 'Provides fast access to the blue summary boxes in MMWR\'s weekly report. Summaries are searchable by specific article, or by specific subject (e.g., salmonella). For iOS devices.';
 $lydia_project = new Project('lydia', 'STD Tx Guide 2015', $lydia_short_desc, 'images/std1_icon.png');
-$lydia_ios_app = new IosApp('0.3.1.1', '2/23/15', '5.4MB', 'StdTxGuide.ipa', null);
+$lydia_ios_app = new IosApp('0.3.5.1', '2/27/15', '5.4MB', 'StdTxGuide.ipa', null);
 $lydia_ios_app->set_github_link('https://github.com/informaticslab/lydia-ios');
 $lydia_ios_app->set_bundle_id('gov.cdc.StdTxGuide');
 $lydia_ios_app->set_mixpanel_id('lydia-ios-applab-download');
 $lydia_project->add_ios_app($lydia_ios_app);
-$lydia_android_app = new AndroidApp('0.3.5','10/20/14', '732KB', 'lydia-release.apk', null);
+$lydia_android_app = new AndroidApp('0.3.9','3/2/14', '1.4MB', 'lydia-release.apk', null);
 $lydia_android_app->set_github_link('https://github.com/informaticslab/lydia-droid');
 $lydia_android_app->set_mixpanel_id('lydia-android-applab-download');
 $lydia_project->add_android_app($lydia_android_app);
