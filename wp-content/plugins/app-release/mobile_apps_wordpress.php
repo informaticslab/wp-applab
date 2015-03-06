@@ -668,7 +668,6 @@ $ios_projects = array (
     $clip_project,
     $epi_project,
     $lydia_ios_project,
-    $lydia_android_project,
     $minesim_project,
     $mmwr_map_project,
     $mmwr_nav_project,
