@@ -9,36 +9,58 @@ License: GNU General Public License
 License URI: license.txt
 */
 
-body {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important}
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	color: #4f4e4e!important;
+}
 
-.entry-title {font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important}
-.widget-easy-twitter-feed-widget-global-wrapper .row  {width:230px; margin-left:0px}
+.entry-title {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important
+}
 
 
+.widget-easy-twitter-feed-widget-global-wrapper .row  {
+	width:230px;
+	margin-left:0px
+}
 
-.navbar-inner li.login {display:none}
+.navbar .nav li a {
+	font-size:11px
+}
 
-.synved-link-type-category {color: #0398d6}
+.navbar-inner li.login {
+	display:none
+}
 
-.synved-link-type-page{color: #0398d6}
+.synved-link-type-category {
+	color: #0398d6
+}
 
-div.entry-content img {border:1px solid #e8e8e8}
+.synved-link-type-page{
+	color: #0398d6
+}
 
-div.download-attachments img.attachment-icon {border:0px solid}
+div.entry-content img {
+	border:1px solid #e8e8e8
+}
+
+div.download-attachments img.attachment-icon {
+	border:0px solid
+}
 
 #breadcrumbs{
     list-style:none;
     margin:10px 0;
-    overflow:hidden;
+   	overflow:hidden;
 }
-
-
-
 
 h1, h2, h3, h4, h5, h6 {
-   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 
 }
+#secondary .widget .widget-title {font-weight: bold; color: #363636!important}
+
+.widget_search .widget-title {border-top:0px solid!important}
  
 #breadcrumbs li{
     float:left;
@@ -46,48 +68,161 @@ h1, h2, h3, h4, h5, h6 {
 }
  
 #breadcrumbs .separator{
-
-    font-size:14px;
+	font-size:14px;
     color:#999;
-}
-
-#breadcrumbs .breadcrumbslinks{
-
 }
 
 
 div.entry-content li {
-list-style-type: inherit;
+	list-style-type: inherit;
 }
 
-.before_title, .after_title {vertical-align: middle}
+.before_title, .after_title {
+	vertical-align: middle
+}
 
 .wrap-navigation .small-logo {
     background: url("../img/logo-small-dark.png") no-repeat scroll center center / auto 100% rgba(0, 0, 0, 0);
-
 }
 
 @media(max-width:500px){
 .wrap-navigation .small-logo {
     background: url("../img/logo-small-dark.png") no-repeat scroll center center / auto 60% rgba(0, 0, 0, 0);
+}
+	}
 
+.btn-group {
+	display:none
+}
+
+#under-navigation {
+	display:none
+}
+
+.navbar {
+	margin-bottom:30px
+}
+
+.desktop .wrap-navigation {
+	width:100%
+}
+
+#secondary .widget {
+	border-top:0px solid black
+}
+
+#menu-active-apps {list-style: none!important;}
+
+div.appDisplay h1.entry-title {
+	display:none
+}
+
+.single .site-content > .hentry .entry-thumbnail img {
+	display:none
+}
+
+div.appDisplay ul.post-categories {
+	display:none
+}
+
+.entry-thumbnail{
+	width:80px
 }
 
 
+.home .site-content .content-inner .has-thumbnail .post-inner {
+	margin-left:100px
 }
 
-.btn-group {display:none}
+.post-inner {
+	margin-left:100px !important
+}
 
-#under-navigation {display:none}
+.site-header #branding a {
+	width:280px; height:100px
+}
 
-.navbar {margin-bottom:30px}
+.post-layout {
+	display: none
+}
 
-.desktop .wrap-navigation {width:100%}
+.widget_ultimate_posts {
+	width:200px
+}
 
-#secondary .widget {border-top:0px solid black}
+section.widget_ultimate_posts div.upw-posts article.app_release {
+	float:left; display:block
+}
 
-div.appDisplay h1.entry-title {display:none}
+.archive .content-inner .hentry:first-child .entry-title {
+	font-size: 16px
+}
 
-.single .site-content > .hentry .entry-thumbnail img {display:none}
+.single .site-content > .hentry .entry-action .social-action  {
+	margin-right: 15px
+}
 
-div.appDisplay ul.post-categories {display:none}
+.single .site-content > .hentry .entry-meta {
+	width: 98%
+}
+
+.single .site-content > .hentry footer.entry-meta {
+	border-top: 0px solid
+}
+
+#comments {
+	border:0px solid
+}
+
+
+/*Ultimate Shortcode CSS*/
+
+.su-tabs-nav {
+	background-color: #282828;
+}
+
+.su-tabs-nav span:hover {
+	background-color: #ee3224!important;
+}
+
+.su-tabs.my-custom-tabs .su-tabs-nav span {
+	font-size: 12px;
+	color: #ffffff;
+	border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.su-tabs.my-custom-tabs .su-tabs-nav span.su-tabs-current {
+	background-color: #ee3224;
+	color: #fffff;
+}
+
+.su-tabs.my-custom-tabs .su-tabs-pane {
+    font-size: 13px;
+    background-color: #ffffff;
+}
+
+.su-post {
+	border-bottom:1px solid #b7b7b7
+}
+ 
+.su-tabs{
+	padding:0px!important
+}
+
+.su-post-comments-link {
+	display:none
+}
+
+.su-post-title a {
+	color: #5d5d5d!important
+}
+
+.su-tabs div.entry-content img {
+	border:0px solid;
+}
+
+/* Hides Su Code from admin page */
+.span3 {width:220px}
+
+.cat-links {display:none}

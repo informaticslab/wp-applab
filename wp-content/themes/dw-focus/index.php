@@ -10,15 +10,40 @@
  */
 get_header(); ?>
     <div id="primary" class="site-content span9">
+   
         <?php if ( have_posts() ) : ?>
         
-            <?php if( is_active_sidebar( 'dw_focus_home' ) ) { ?>
-
                 <?php dynamic_sidebar('dw_focus_home'); ?>
-                
-            <?php } else { ?>
+                <br />
+                 
+                <div class="content-bar row-fluid">
+            <h1 class="page-title">
+                <?php if ( is_day() ) : ?>
+                    <?php printf( __( 'Daily Archives: %s', 'dw-focus' ), '<span>' . get_the_date() . '</span>' ); ?>
+                <?php elseif ( is_month() ) : ?>
+                    <?php printf( __( 'Monthly Archives: %s', 'dw-focus' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'dw-focus' ) ) . '</span>' ); ?>
+                <?php elseif ( is_year() ) : ?>
+                    <?php
+                        printf( __( 'Category Archives: %s', 'dw-focus' ), '<span>' . single_cat_title( '', false ) . '</span>' );
+                    ?>
+                 <?php elseif ( is_tag() ) : ?>
+                    <?php
+                        printf( __( 'Tag Archives: %s', 'dw-focus' ), '<span>' . single_tag_title( '', false ) . '</span>' );
+                    ?>
+                <?php else : ?>
+                    <h1 class="page-title"><?php
+						printf( __( "NEW APPS AVAILABLE FOR DOWNLOAD:  IOS AND ANDROID", 'dw-focus' ), '<span>' . single_cat_title( '', false ) . '</span>' );
+					?></h1>
+                <?php endif; ?>
+            </h1>
 
+            <div class="post-layout">
+                <a class="layout-list active" href="#"><i class="icon-th-list"></i></a>
+                <a class="layout-grid" href="#"><i class="icon-th"></i></a>
+            </div>
+        </div>
                 <div class="content-inner">
+                
                     <?php
             		$apppost = array( 'post_type' => 'app_release', );
             		$loop = new WP_Query( $apppost );
@@ -29,7 +54,6 @@ get_header(); ?>
                     <?php endwhile; ?>
                 </div>
                 <?php dw_focus_pagenavi(); ?>
-            <?php } ?>
 
         <?php else : ?>
 
