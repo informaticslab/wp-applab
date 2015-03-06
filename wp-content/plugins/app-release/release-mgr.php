@@ -565,7 +565,7 @@ class ReleaseManager
     public static $minesim = 'minesim';
 
 
-    public static $download_root = 'http://172.16.100.214/wordpress/wp-content/plugins/app-release/releases/';
+    public static $download_root = 'http://172.16.100.214/wp-content/plugins/app-release/releases/';
 
     private $project_templates;
 
