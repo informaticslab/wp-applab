@@ -20,7 +20,7 @@ $ios_releases = array (
 foreach ($ios_releases as $release) {
 
 
-    $release->ios_app->write_manifest();
+    $release->project->write_ios_manifest_file();
 
 }
 

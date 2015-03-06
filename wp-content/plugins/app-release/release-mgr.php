@@ -15,6 +15,8 @@ else
 define('DOWNLOADS_RELATIVE_PATH','releases/');
 define('MANIFEST_SPECIFIC_IPA_PATH',APP_ROOT.'wp-content/plugins/app-release/');
 
+date_default_timezone_set('America/New_York');
+
 
 abstract class BaseApp {
     public $version;
