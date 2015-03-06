@@ -4,8 +4,9 @@
 $host_name = gethostname();
 
 define('SERVER_DOMAIN','phiresearchlab.org');
-define('SERVER','www'.'.'.SERVER_DOMAIN);
+#define('SERVER','lvsiiuwp4.lab.local'.'.'.SERVER_DOMAIN);
 
+define('SERVER','172.16.100.214');
 // see which VM we are running so manifest links get generated properly
 if ($host_name === 'lvsiiuwp4.lab.local') // production server
     define('APP_ROOT','/');
@@ -75,7 +76,7 @@ class IosApp extends BaseApp {
     public function set_downloads($downloads_rel_path) {
 
         $this->ios_dir = $downloads_rel_path.'/ios/'.$this->version.'/';
-        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.APP_ROOT.$this->ios_dir.self::MANIFEST_FILE;
+        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.MANIFEST_SPECIFIC_IPA_PATH.$this->ios_dir.self::MANIFEST_FILE;
         $this->ipa_path = APP_ROOT.$this->ios_dir.$this->ipa_file;
 
     }
@@ -520,7 +521,7 @@ class Release
         //error_log('Configuring iOS Release object with version '.$this->version,0);
 
         $this->ios_app = new IosApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->ios_app->set_downloads(ReleaseManager::$download_root.$this->project);
+        $this->ios_app->set_downloads(DOWNLOADS_RELATIVE_PATH.$this->project);
         $this->ios_app->set_bundle_id($bundle_id);
         $this->download_link = $this->ios_app->ipa_path;
         //error_log('Download path set to '.$this->download_link,0);
@@ -531,7 +532,7 @@ class Release
     public function configure_android_release()
     {
         $this->android_app = new AndroidApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->android_app->set_downloads(ReleaseManager::$download_root.$this->project);
+        $this->android_app->set_downloads(DOWNLOADS_RELATIVE_PATH.$this->project);
         $this->download_link = $this->android_app->apk_path;
 
     }
