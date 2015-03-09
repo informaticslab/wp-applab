@@ -6,7 +6,7 @@ $host_name = gethostname();
 define('SERVER_DOMAIN','phiresearchlab.org');
 #define('SERVER','lvsiiuwp4.lab.local'.'.'.SERVER_DOMAIN);
 
-define('SERVER','172.16.100.214');
+define('SERVER','applab.phireseachlab.org');
 // see which VM we are running so manifest links get generated properly
 if ($host_name === 'lvsiiuwp4.lab.local') // production server
     define('APP_ROOT','/');
