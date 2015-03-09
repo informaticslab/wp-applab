@@ -6,7 +6,7 @@ $host_name = gethostname();
 define('SERVER_DOMAIN','phiresearchlab.org');
 #define('SERVER','lvsiiuwp4.lab.local'.'.'.SERVER_DOMAIN);
 
-define('SERVER','applab.phireseachlab.org');
+define('SERVER','applab.phiresearchlab.org');
 // see which VM we are running so manifest links get generated properly
 if ($host_name === 'lvsiiuwp4.lab.local') // production server
     define('APP_ROOT','/');
@@ -75,8 +75,8 @@ class IosApp extends BaseApp {
     public function set_downloads($downloads_rel_path) {
 
         $this->ios_dir = $downloads_rel_path.'/ios/'.$this->version.'/';
-        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.DOWNLOADS_RELATIVE_PATH.$this->ios_dir.self::MANIFEST_FILE;
-        $this->ipa_path = DOWNLOADS_RELATIVE_PATH.$this->ios_dir.$this->ipa_file;
+        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.$this->ios_dir.self::MANIFEST_FILE;
+        $this->ipa_path = $this->ios_dir.$this->ipa_file;
 
     }
 
