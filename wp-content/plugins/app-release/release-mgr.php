@@ -13,8 +13,7 @@ if ($host_name === 'lvsiiuwp4.lab.local') // production server
 else
     define('APP_ROOT','/applabtest/'); // else must be a dev server
 
-define('DOWNLOADS_RELATIVE_PATH','releases/');
-define('MANIFEST_SPECIFIC_IPA_PATH',APP_ROOT.'wp-content/plugins/app-release/');
+define('DOWNLOADS_RELATIVE_PATH',APP_ROOT.'wp-content/plugins/app-release/releases/');
 
 date_default_timezone_set('America/New_York');
 
@@ -76,8 +75,8 @@ class IosApp extends BaseApp {
     public function set_downloads($downloads_rel_path) {
 
         $this->ios_dir = $downloads_rel_path.'/ios/'.$this->version.'/';
-        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.MANIFEST_SPECIFIC_IPA_PATH.$this->ios_dir.self::MANIFEST_FILE;
-        $this->ipa_path = APP_ROOT.$this->ios_dir.$this->ipa_file;
+        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.DOWNLOADS_RELATIVE_PATH.$this->ios_dir.self::MANIFEST_FILE;
+        $this->ipa_path = DOWNLOADS_RELATIVE_PATH.$this->ios_dir.$this->ipa_file;
 
     }
 
@@ -106,7 +105,7 @@ class IosApp extends BaseApp {
         fwrite($manifest_file,  '              <key>kind</key>'."\n");
         fwrite($manifest_file,  '              <string>software-package</string>'."\n");
         fwrite($manifest_file,  '              <key>url</key>'."\n");
-        fwrite($manifest_file,  '              <string>https://'.SERVER.MANIFEST_SPECIFIC_IPA_PATH.$this->ios_dir.$this->ipa_file."</string>\n");
+        fwrite($manifest_file,  '              <string>https://'.SERVER.DOWNLOADS_RELATIVE_PATH.$this->ios_dir.$this->ipa_file."</string>\n");
         fwrite($manifest_file,  '            </dict>'."\n");
         fwrite($manifest_file,  '          </array>'."\n");
         fwrite($manifest_file,  '          <key>metadata</key>'."\n");
