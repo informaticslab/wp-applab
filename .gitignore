@@ -15,7 +15,7 @@ wp-content/plugins/*
 wp-content/plugins/*
 wp-content/plugins/*
 !wp-content/plugins/app-release/
-wp-content/plugins/app-release/downloads/*
+wp-content/plugins/app-release/releases/*
  
 # Ignore everything in the "themes" directory, except the themes you specify
 wp-content/themes/*
