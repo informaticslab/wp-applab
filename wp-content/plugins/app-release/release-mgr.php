@@ -6,14 +6,11 @@ $host_name = gethostname();
 define('SERVER_DOMAIN','phiresearchlab.org');
 #define('SERVER','lvsiiuwp4.lab.local'.'.'.SERVER_DOMAIN);
 
-define('SERVER','applab.phiresearchlab.org');
+define('SERVER','applab.phiresearchlab.org/');
 // see which VM we are running so manifest links get generated properly
-if ($host_name === 'lvsiiuwp4.lab.local') // production server
-    define('APP_ROOT','/');
-else
-    define('APP_ROOT','/applabtest/'); // else must be a dev server
 
-define('DOWNLOADS_RELATIVE_PATH',APP_ROOT.'wp-content/plugins/app-release/releases/');
+define('RELEASES_RELATIVE_PATH', 'releases/');
+define('DOWNLOADS_RELATIVE_PATH','wp-content/plugins/app-release/releases/');
 
 date_default_timezone_set('America/New_York');
 
@@ -55,6 +52,7 @@ abstract class BaseApp {
 
 class IosApp extends BaseApp {
     public $manifest_link;
+    public $manifest_file_path;
     public $itunes_link;
     public $ipa_file;
     public $ios_dir;
@@ -72,11 +70,26 @@ class IosApp extends BaseApp {
 
     }
 
-    public function set_downloads($downloads_rel_path) {
+    public function print_info() {
 
-        $this->ios_dir = $downloads_rel_path.'/ios/'.$this->version.'/';
-        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.$this->ios_dir.self::MANIFEST_FILE;
-        $this->ipa_path = $this->ios_dir.$this->ipa_file;
+        printf("\tIOS App Info\n");
+        printf("\t\tIPA File = %s\n", $this->ipa_file);
+        printf("\t\tIPA Path = %s\n", $this->ipa_path);
+        printf("\t\tIOS dir = %s\n", $this->ios_dir);
+        printf("\t\tManifest link = %s\n", $this->manifest_link);
+        printf("\t\tManifest file path = %s\n", $this->manifest_file_path);
+        printf("\t\tIOS dir = %s\n", $this->ios_dir);
+
+        printf("\t\tBundle ID = %s\n", $this->bundle_id);
+
+    }
+
+    public function set_downloads($project) {
+
+        $this->ios_dir = DOWNLOADS_RELATIVE_PATH.$project.'/ios/'.$this->version;
+        $this->manifest_link = self::MANIFEST_PREFIX.SERVER.$this->ios_dir.'/'.self::MANIFEST_FILE;
+        $this->manifest_file_path = RELEASES_RELATIVE_PATH.$project.'/ios/'.$this->version.'/'.self::MANIFEST_FILE;
+        $this->ipa_path = $this->ios_dir.'/'.$this->ipa_file;
 
     }
 
@@ -89,7 +102,7 @@ class IosApp extends BaseApp {
 
     public function write_manifest($app_title) {
 
-        $manifest_file = fopen($this->ios_dir.self::MANIFEST_FILE, "w") or die("Can't open file: ".$this->ios_dir.self::MANIFEST_FILE);
+        $manifest_file = fopen($this->manifest_file_path, "w") or die("Can't open file: ".$this->ios_dir.self::MANIFEST_FILE."\n");
 
 
         fwrite($manifest_file,  '<?xml version="1.0" encoding="UTF-8"?>'."\n");
@@ -105,7 +118,7 @@ class IosApp extends BaseApp {
         fwrite($manifest_file,  '              <key>kind</key>'."\n");
         fwrite($manifest_file,  '              <string>software-package</string>'."\n");
         fwrite($manifest_file,  '              <key>url</key>'."\n");
-        fwrite($manifest_file,  '              <string>https://'.SERVER.DOWNLOADS_RELATIVE_PATH.$this->ios_dir.$this->ipa_file."</string>\n");
+        fwrite($manifest_file,  '              <string>http://'.SERVER.$this->ios_dir.$this->ipa_file."</string>\n");
         fwrite($manifest_file,  '            </dict>'."\n");
         fwrite($manifest_file,  '          </array>'."\n");
         fwrite($manifest_file,  '          <key>metadata</key>'."\n");
@@ -216,12 +229,12 @@ class AndroidApp extends BaseApp {
 
     }
 
-    public function set_downloads($downloads_path) {
+    public function set_downloads($project) {
 
         // if no APK file then archived project and no app downloads
         if ($this->apk_file != null) {
 
-            $this->apk_path = "$downloads_path/android/$this->version/$this->apk_file";
+            $this->apk_path = DOWNLOADS_RELATIVE_PATH.'/'.$project.'/android/.'.$this->version.'/'.$this->apk_file;
         }
     }
 
@@ -486,6 +499,16 @@ class Release
 
     }
 
+    public function print_info() {
+
+        printf("Release Info\n");
+        printf("\tApp name = %s\n", $this->app_name);
+        printf("\tProject = %s\n", $this->project);
+        printf("\tPlatform = %s\n", $this->platform);
+
+    }
+
+
     public function init($project_template)
     {
         // error_log('Release init() ',0);
@@ -520,7 +543,7 @@ class Release
         //error_log('Configuring iOS Release object with version '.$this->version,0);
 
         $this->ios_app = new IosApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->ios_app->set_downloads(DOWNLOADS_RELATIVE_PATH.$this->project);
+        $this->ios_app->set_downloads($this->project);
         $this->ios_app->set_bundle_id($bundle_id);
         $this->download_link = $this->ios_app->ipa_path;
         //error_log('Download path set to '.$this->download_link,0);
@@ -531,7 +554,7 @@ class Release
     public function configure_android_release()
     {
         $this->android_app = new AndroidApp($this->version, $this->date, '', $this->app, $this->app_store_link);
-        $this->android_app->set_downloads(DOWNLOADS_RELATIVE_PATH.$this->project);
+        $this->android_app->set_downloads($this->project);
         $this->download_link = $this->android_app->apk_path;
 
     }
@@ -578,7 +601,7 @@ class ReleaseManager
             self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'gov.cdc.retro', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null),
             self::$tempmon => new ProjectTemplate(self::$tempmon, self::$ios_platform_id,'Temp Monitor', 'TempMonitor.ipa', 'gov.cdc.iiu.TempMonitor', 'images/tempmon_icon.png', 'https://github.com/informaticslab/ebolocatemp-ios', null),
             self::$trainers_guide => new ProjectTemplate(self::$trainers_guide, self::$ios_platform_id,'NIOSH Trainers Guide', 'TrainersGuide.ipa', 'gov.cdc.TrainersGuide', 'images/HomecareApp-icon.png', null,null),
-            self::$wisqars => new ProjectTemplate(self::$wisqars, self::$ios_platform_id,'WISQARS', 'WisqarsMobile.ipa', null, 'images/WISQARSMobileApp72.png', null, null),
+            self::$wisqars => new ProjectTemplate(self::$wisqars, self::$ios_platform_id,'WISQARS', 'WisqarsMobile.ipa', 'WisqarsMobileN26', 'images/WISQARSMobileApp72.png', null, null),
             self::$mmwrnav => new ProjectTemplate(self::$mmwrnav, self::$ios_platform_id,'MMWR Navigator', 'mmwr-navigator.ipa', 'gov.cdc.mmwr-navigator', 'images/mmwr_nav_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
             self::$mmwrmap => new ProjectTemplate(self::$mmwrmap, self::$ios_platform_id,'MMWR Map Navigator', 'MapApp.ipa', 'gov.cdc.MmwrMapApp', 'images/mmwr_map_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
             self::$minesim => new ProjectTemplate(self::$minesim, self::$ios_platform_id,'NIOSH Mine Safety Training', 'mine_sim.ipa', 'gov.cdc.MineSim', 'images/mine_safety_icon.png', 'https://github.com/informaticslab/vrminesim', null)

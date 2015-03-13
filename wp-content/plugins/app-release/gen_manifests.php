@@ -17,11 +17,8 @@ $ios_releases = array (
     $release_mgr->configure_release(ReleaseManager::$wisqars, '0.2.7')
 );
 
-
 foreach ($ios_releases as $release) {
-
 
     $release->ios_app->write_manifest($release->app_name);
 
 }
-

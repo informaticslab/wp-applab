@@ -19,6 +19,7 @@ $ios_releases = array (
 
 foreach ($ios_releases as $release) {
 
-    $release->ios_app->
+    $release->print_info();
+    $release->ios_app->print_info();
 
 }
