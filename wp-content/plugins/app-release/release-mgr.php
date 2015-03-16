@@ -596,7 +596,7 @@ class ReleaseManager
             self::$lydia_android => new ProjectTemplate(self::$lydia_android,  self::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', null, 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null),
             self::$ptt => new ProjectTemplate(self::$ptt, self::$ios_platform_id,'PTT Advisor', 'PTTAdvisor.ipa', null, 'images/ptt_icon.png', 'https://github.com/informaticslab/ptt-advisor', 'https://itunes.apple.com/us/app/ptt-advisor/id537989131?mt=8&ls=1'),
             self::$bluebird => new ProjectTemplate(self::$bluebird, self::$ios_platform_id,'Bluebird', 'bluebird.ipa', 'gov.cdc.bluebird', 'images/std1_icon.png', 'https://github.com/informaticslab/bluebird', null),
-            self::$epi => new ProjectTemplate(self::$epi, self::$ios_platform_id,'Epi Info', 'EpiInfo.ipa', 'gov.cdc.csels.EpiInfo', 'images/epi_icon.png', null, null),
+            self::$epi => new ProjectTemplate(self::$epi, self::$ios_platform_id,'Epi Info', 'EpiInfo.ipa', 'gov.cdc.csels.EpiInfo', 'images/epi_icon.png', null, 'https://itunes.apple.com/us/app/epi-infotm-companion-for-iphone/id762428884?mt=8'),
             self::$everydose => new ProjectTemplate(self::$everydose, self::$android_platform_id,'EveryDose', 'EveryDose.apk', null, 'images/tempmon_icon.png', null, null),
             self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'gov.cdc.retro', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null),
             self::$tempmon => new ProjectTemplate(self::$tempmon, self::$ios_platform_id,'Temp Monitor', 'TempMonitor.ipa', 'gov.cdc.iiu.TempMonitor', 'images/tempmon_icon.png', 'https://github.com/informaticslab/ebolocatemp-ios', null),
