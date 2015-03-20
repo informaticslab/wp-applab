@@ -234,7 +234,7 @@ class AndroidApp extends BaseApp {
         // if no APK file then archived project and no app downloads
         if ($this->apk_file != null) {
 
-            $this->apk_path = DOWNLOADS_RELATIVE_PATH.'/'.$project.'/android/'.$this->version.'/'.$this->apk_file;
+            $this->apk_path = DOWNLOADS_RELATIVE_PATH.$project.'/android/'.$this->version.'/'.$this->apk_file;
         }
     }
 
