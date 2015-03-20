@@ -571,6 +571,8 @@ class ReleaseManager
     public static $lydia_android = 'lydia-android';
     public static $lydia_ios = 'lydia-ios';
     public static $photon = 'photon';
+    public static $photon_android = 'photon-android';
+
     public static $ptt = 'ptt';
     public static $bluebird = 'bluebird';
     public static $epi = 'epi';
@@ -592,6 +594,7 @@ class ReleaseManager
     {
         $this->project_templates = [
             self::$photon => new ProjectTemplate(self::$photon, self::$ios_platform_id,'MMWR Express', 'photon.ipa', null, 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon', 'https://itunes.apple.com/us/app/mmwr-express/id868245971?mt=8'),
+            self::$photon_android => new ProjectTemplate(self::$photon_android, self::$android_platform_id,'MMWR Express', 'photon-release.apk', null, 'images/mmwr_express_icon.png', 'https://github.com/informaticslab/photon-droid', null),
             self::$lydia_ios => new ProjectTemplate(self::$lydia_ios, self::$ios_platform_id,'STD Tx Guide 2015', 'StdTxGuide.ipa', 'gov.cdc.StdTxGuide', 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-ios', null),
             self::$lydia_android => new ProjectTemplate(self::$lydia_android,  self::$android_platform_id,'STD Tx Guide 2015', 'lydia-release.apk', null, 'images/std1_icon.png', 'https://github.com/informaticslab/lydia-droid', null),
             self::$ptt => new ProjectTemplate(self::$ptt, self::$ios_platform_id,'PTT Advisor', 'PTTAdvisor.ipa', null, 'images/ptt_icon.png', 'https://github.com/informaticslab/ptt-advisor', 'https://itunes.apple.com/us/app/ptt-advisor/id537989131?mt=8&ls=1'),
