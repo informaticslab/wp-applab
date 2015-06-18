@@ -16,7 +16,7 @@ $ios_releases = array (
     $release_mgr->configure_release(ReleaseManager::$trainers_guide, '0.9.3'),
     $release_mgr->configure_release(ReleaseManager::$wisqars, '0.2.7'),
     $release_mgr->configure_release(ReleaseManager::$lifeguard, '0.3.1.1'),
-    $release_mgr->configure_release(ReleaseManager::$photon, '1.1.0.1')
+    $release_mgr->configure_release(ReleaseManager::$photon, '1.1.0.2')
 );
 
 foreach ($ios_releases as $release) {
