@@ -607,7 +607,7 @@ class ReleaseManager
             self::$retro => new ProjectTemplate(self::$retro, self::$ios_platform_id,'ARCH-Couples', 'retro.ipa', 'gov.cdc.retro', 'images/retro_icon.png', 'https://github.com/informaticslab/retro', null),
             self::$tempmon => new ProjectTemplate(self::$tempmon, self::$ios_platform_id,'Temp Monitor', 'TempMonitor.ipa', 'gov.cdc.iiu.TempMonitor', 'images/tempmon_icon.png', 'https://github.com/informaticslab/ebolocatemp-ios', null),
             self::$trainers_guide => new ProjectTemplate(self::$trainers_guide, self::$ios_platform_id,'NIOSH Trainers Guide', 'TrainersGuide.ipa', 'gov.cdc.TrainersGuide', 'images/HomecareApp-icon.png', null,null),
-            self::$trainers_guide_android = new ProjectTemplate(self::$trainers_guide_android,  self::$android_platform_id,'NIOSH Trainers Guide', 'TrainersGuide.apk', null, 'images/HomecareApp-icon.png', null, null),
+            self::$trainers_guide_android => new ProjectTemplate(self::$trainers_guide_android,  self::$android_platform_id, 'NIOSH Trainers Guide', 'TrainersGuide.apk', null, 'images/HomecareApp-icon.png', null, null),
             self::$wisqars => new ProjectTemplate(self::$wisqars, self::$ios_platform_id,'WISQARS', 'WisqarsMobile.ipa', 'WisqarsMobileN26', 'images/WISQARSMobileApp72.png', null, null),
             self::$mmwrnav => new ProjectTemplate(self::$mmwrnav, self::$ios_platform_id,'MMWR Navigator', 'mmwr-navigator.ipa', 'gov.cdc.mmwr-navigator', 'images/mmwr_nav_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
             self::$mmwrmap => new ProjectTemplate(self::$mmwrmap, self::$ios_platform_id,'MMWR Map Navigator', 'MapApp.ipa', 'gov.cdc.MmwrMapApp', 'images/mmwr_map_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
