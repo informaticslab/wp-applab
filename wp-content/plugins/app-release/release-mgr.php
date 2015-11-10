@@ -598,6 +598,7 @@ class ReleaseManager
     public static $mmwrmap = 'mapapp';
     public static $minesim = 'minesim';
     public static $lifeguard = 'lifeguard';
+    public static $ladder_safety_ios = 'ladder-safety-ios';
 
 
     public static $download_root = 'http://172.16.100.214/wp-content/plugins/app-release/releases/';
@@ -624,7 +625,8 @@ class ReleaseManager
             self::$mmwrnav => new ProjectTemplate(self::$mmwrnav, self::$ios_platform_id,'MMWR Navigator', 'mmwr-navigator.ipa', 'gov.cdc.mmwr-navigator', 'images/mmwr_nav_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
             self::$mmwrmap => new ProjectTemplate(self::$mmwrmap, self::$ios_platform_id,'MMWR Map Navigator', 'MapApp.ipa', 'gov.cdc.MmwrMapApp', 'images/mmwr_map_icon.png', 'https://github.com/informaticslab/mmwr-nav', null),
             self::$minesim => new ProjectTemplate(self::$minesim, self::$ios_platform_id,'NIOSH Mine Safety Training', 'mine_sim.ipa', 'gov.cdc.MineSim', 'images/mine_safety_icon.png', 'https://github.com/informaticslab/vrminesim', null),
-            self::$lifeguard => new ProjectTemplate(self::$lifeguard, self::$ios_platform_id,'Lifeguard', 'Lifeguard.ipa', 'gov.cdc.lifeguard', 'images/lifeguard.png', 'https://github.com/informaticslab/lifeguard', null)
+            self::$lifeguard => new ProjectTemplate(self::$lifeguard, self::$ios_platform_id,'Lifeguard', 'Lifeguard.ipa', 'gov.cdc.lifeguard', 'images/lifeguard.png', 'https://github.com/informaticslab/lifeguard', null),
+            self::$ladder_safety_ios => new ProjectTemplate(self::$ladder_safety_ios, self::$ios_platform_id,'Ladder Safety', 'LadderSafety.ipa', 'com.dsfederal.laddersafety', 'images/std1_icon.png', null, null)
 
         ];
 
