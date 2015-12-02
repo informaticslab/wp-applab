@@ -807,7 +807,6 @@ $std2_ios_app->set_mixpanel_id('std2-applab-download');
 $std2_ios_app->archive_app();
 $std2_project->add_ios_app($std2_ios_app);
 
-
 # STD 3 settings
 $std3_project = new Project('std3', 'STD Guide, Version 3', 'images/std3_icon.png');
 $std3_ios_app = new IosApp('1.0.9', '6/5/2013', '8.1MB', 'StdGuide3.ipa', 'https://itunes.apple.com/us/app/std-tx-guide/id655206856?mt=8');
@@ -844,9 +843,3 @@ $wisqars_ios_app = new IosApp('0.2.7', '9/13/13', '18.5MB', 'WisqarsMobile.ipa',
 $wisqars_ios_app->set_bundle_id('');
 $wisqars_ios_app->set_mixpanel_id('wisqars-applab-download');
 $wisqars_project->add_ios_app($wisqars_ios_app);
-
-
-
-
-
-
